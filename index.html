@@ -29,20 +29,20 @@ body{background:var(--cream);font-family:'Quicksand',sans-serif;color:var(--dark
 .bf-logo svg{display:block;}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:flex;align-items:center;justify-content:space-between;transition:all 0.35s;}
-nav.scrolled{background:rgba(255,248,252,0.96);backdrop-filter:blur(20px);box-shadow:0 1px 0 rgba(196,94,245,0.12);padding:12px 48px;}
+#nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:18px 48px;display:flex;align-items:center;justify-content:space-between;transition:all 0.35s;}
+#nav.scrolled{background:rgba(255,248,252,0.96);backdrop-filter:blur(20px);box-shadow:0 1px 0 rgba(196,94,245,0.12);padding:12px 48px;}
 .nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
 .nav-logo-text{font-family:'Great Vibes',cursive;font-size:1.25rem;color:white;transition:color 0.3s;letter-spacing:0.5px;}
-nav.scrolled .nav-logo-text{color:var(--dark);}
-.nav-links{display:flex;gap:16px;list-style:none;flex-wrap:wrap;}.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px;}.hamburger span{display:block;width:24px;height:2px;background:white;border-radius:2px;transition:all 0.3s;}nav.scrolled .hamburger span{background:var(--dark);}.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(255,248,252,0.99);backdrop-filter:blur(20px);padding:16px 24px 24px;box-shadow:0 8px 24px rgba(196,94,245,0.15);z-index:99;}.mobile-menu.open{display:block;}.mobile-menu a{display:block;padding:14px 0;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--dark);text-decoration:none;border-bottom:1px solid var(--pink-soft);}.mobile-menu a:last-child{border:none;}.mobile-menu a:hover{color:var(--purple);}
+#nav.scrolled .nav-logo-text{color:var(--dark);}
+.nav-links{display:flex;gap:16px;list-style:none;flex-wrap:wrap;}.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px;z-index:101;}.hamburger span{display:block;width:24px;height:2px;background:white;border-radius:2px;transition:all 0.3s;}#nav.scrolled .hamburger span{background:var(--dark);}.mobile-menu{display:none;position:fixed;top:72px;left:0;right:0;background:rgba(255,248,252,0.99);backdrop-filter:blur(20px);padding:16px 24px 24px;box-shadow:0 8px 24px rgba(196,94,245,0.15);z-index:99;}.mobile-menu.open{display:block;}.mobile-menu a{display:block;padding:14px 0;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--dark);text-decoration:none;border-bottom:1px solid var(--pink-soft);}.mobile-menu a:last-child{border:none;}.mobile-menu a:hover{color:var(--purple);}
 .nav-links a{color:rgba(255,255,255,0.85);text-decoration:none;font-size:0.78rem;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;transition:color 0.3s;}
-nav.scrolled .nav-links a{color:var(--dark);}
+#nav.scrolled .nav-links a{color:var(--dark);}
 .nav-links a:hover{color:var(--gold);}
-nav.scrolled .nav-links a:hover{color:var(--purple);}
+#nav.scrolled .nav-links a:hover{color:var(--purple);}
 .nav-install{background:white;color:var(--purple-deep);border:none;border-radius:50px;padding:9px 22px;font-family:'Quicksand',sans-serif;font-size:0.75rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all 0.3s;display:none;}
 .nav-install:hover{background:var(--gold);color:var(--dark);}
-nav.scrolled .nav-install{background:var(--purple);color:white;}
-nav.scrolled .nav-install:hover{background:var(--purple-deep);}
+#nav.scrolled .nav-install{background:var(--purple);color:white;}
+#nav.scrolled .nav-install:hover{background:var(--purple-deep);}
 
 /* HERO */
 .hero{min-height:100vh;background:#c45ef5;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;padding:40px 20px;}
@@ -167,12 +167,15 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
   .art-card.tall{grid-row:span 1;}
   .art-card.tall .art-thumb{min-height:unset;}
   .shop-grid{grid-template-columns:1fr;gap:18px;}
-  nav{padding:14px 20px;}
+  #nav{padding:14px 20px;}
+  .nav-links{display:none;}
+  .nav-install{display:none !important;}
   .hamburger{display:flex;}
   .gallery{padding:70px 24px;}
   .commission{padding:70px 24px;}
   .form-row{grid-template-columns:1fr;}
   footer{padding:48px 24px;}
+  .footer-nav{gap:18px 24px;}
 }
 </style>
 </head>

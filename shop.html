@@ -22,6 +22,13 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 .nav-links{display:flex;gap:16px;list-style:none;flex-wrap:wrap;}
 .nav-links a{color:var(--dark);text-decoration:none;font-size:0.78rem;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;transition:color 0.3s;}
 .nav-links a:hover,.nav-links a.active{color:var(--purple);}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px;z-index:101;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--dark);border-radius:2px;transition:all 0.3s;}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(255,248,252,0.99);backdrop-filter:blur(20px);padding:16px 24px 24px;box-shadow:0 8px 24px rgba(196,94,245,0.15);z-index:99;max-height:calc(100vh - 64px);overflow-y:auto;}
+.mobile-menu.open{display:block;}
+.mobile-menu a{display:block;padding:14px 0;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--dark);text-decoration:none;border-bottom:1px solid var(--pink-soft);}
+.mobile-menu a:last-child{border:none;}
+.mobile-menu a:hover,.mobile-menu a.active{color:var(--purple);}
 
 /* HERO */
 .shop-hero{background:#c45ef5;padding:140px 48px 80px;text-align:center;position:relative;overflow:hidden;}
@@ -139,6 +146,10 @@ footer{background:var(--dark);padding:48px;text-align:center;}
   .product-grid{grid-template-columns:repeat(2,1fr);}
   .station{padding:28px 20px;}
 }
+@media(max-width:760px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+}
 </style>
 </head>
 <body>
@@ -155,7 +166,16 @@ footer{background:var(--dark);padding:48px;text-align:center;}
     <li><a href="order.html">Order</a></li>
     <li><a href="commission.html">Commission</a></li>
   </ul>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html" onclick="closeMenu()">Home</a>
+  <a href="gallery.html" onclick="closeMenu()">Gallery</a>
+  <a href="shop.html" class="active" onclick="closeMenu()">Shop</a>
+  <a href="order.html" onclick="closeMenu()">Order</a>
+  <a href="commission.html" onclick="closeMenu()">Commission</a>
+</div>
 
 <!-- HERO -->
 <div class="shop-hero">
@@ -369,6 +389,9 @@ footer{background:var(--dark);padding:48px;text-align:center;}
 </footer>
 
 <script>
+function toggleMenu(){document.getElementById("mobile-menu").classList.toggle("open");}
+function closeMenu(){document.getElementById("mobile-menu").classList.remove("open");}
+
 var selPainting = '', selProduct = '', selPrice = 0;
 
 function selectPainting(el, name) {
