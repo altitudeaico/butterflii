@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Thank You! — The Butterflii Art Studio</title>
+<meta name="theme-color" content="#c45ef5"/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--purple:#c45ef5;--purple-deep:#9b2fd4;--purple-light:#f3e5ff;--pink:#ffb3d1;--pink-soft:#ffe0ef;--gold:#f9c84a;--dark:#2a0a3e;--cream:#fff8fc;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#c45ef5;font-family:'Quicksand',sans-serif;color:white;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;position:relative;}
+
+/* CONFETTI */
+.confetti-wrap{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.confetti-piece{position:absolute;width:10px;height:10px;top:-20px;opacity:0;animation:confettiFall linear forwards;}
+@keyframes confettiFall{
+  0%{transform:translateY(0) rotate(0deg);opacity:1;}
+  100%{transform:translateY(110vh) rotate(720deg);opacity:0;}
+}
+
+/* BUTTERFLIES */
+.bf-wrap{position:fixed;inset:0;pointer-events:none;z-index:1;}
+.fly-bf{position:absolute;font-size:2rem;opacity:0;animation:bfFly ease-in-out forwards;}
+@keyframes bfFly{
+  0%{opacity:0;transform:translate(0,0) scale(0.5) rotate(-10deg);}
+  20%{opacity:1;}
+  80%{opacity:1;}
+  100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(1.2) rotate(10deg);}
+}
+
+/* MAIN CARD */
+.card{position:relative;z-index:10;background:white;border-radius:32px;padding:60px 48px;max-width:560px;width:90%;text-align:center;box-shadow:0 24px 80px rgba(0,0,0,0.2);animation:cardPop 0.6s cubic-bezier(.34,1.56,.64,1) forwards;}
+@keyframes cardPop{from{opacity:0;transform:scale(0.7) translateY(40px);}to{opacity:1;transform:scale(1) translateY(0);}}
+
+.big-bf{font-size:5rem;display:block;margin-bottom:8px;animation:bfBounce 1s ease-in-out infinite;}
+@keyframes bfBounce{0%,100%{transform:translateY(0) rotate(-5deg);}50%{transform:translateY(-12px) rotate(5deg);}}
+
+h1{font-family:'Great Vibes',cursive;font-size:clamp(3rem,8vw,5rem);color:var(--purple);margin-bottom:8px;line-height:1;}
+.subtitle{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:#888;font-style:italic;margin-bottom:32px;line-height:1.6;}
+
+.steps{display:grid;gap:14px;margin-bottom:36px;text-align:left;}
+.step-row{display:flex;align-items:flex-start;gap:14px;background:var(--purple-light);border-radius:16px;padding:16px;}
+.step-icon{font-size:1.5rem;flex-shrink:0;}
+.step-text strong{display:block;font-size:0.88rem;color:var(--dark);margin-bottom:3px;}
+.step-text span{font-size:0.8rem;color:#aaa;line-height:1.5;}
+
+.btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+.btn-home{background:var(--purple);color:white;border:none;border-radius:50px;padding:14px 32px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.25s;text-decoration:none;display:inline-block;}
+.btn-home:hover{background:var(--purple-deep);transform:translateY(-2px);box-shadow:0 8px 24px rgba(196,94,245,0.4);}
+.btn-shop{background:transparent;color:var(--purple);border:2px solid var(--purple);border-radius:50px;padding:12px 32px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all 0.25s;text-decoration:none;display:inline-block;}
+.btn-shop:hover{background:var(--purple-light);transform:translateY(-2px);}
+
+.sparkle{position:absolute;font-size:1.2rem;animation:sparklePop 0.8s ease-out forwards;pointer-events:none;}
+@keyframes sparklePop{0%{opacity:0;transform:scale(0);}50%{opacity:1;transform:scale(1.3);}100%{opacity:0;transform:scale(0.8) translateY(-20px);}}
+</style>
+</head>
+<body>
+
+<div class="confetti-wrap" id="confetti"></div>
+<div class="bf-wrap" id="butterflies"></div>
+
+<div class="card" id="card">
+  <span class="big-bf">🦋</span>
+  <h1>Thank You!</h1>
+  <p class="subtitle">Your order has been received and Elsie is SO excited to get to work for you! 💜</p>
+
+  <div class="steps">
+    <div class="step-row">
+      <div class="step-icon">📧</div>
+      <div class="step-text">
+        <strong>Check your email</strong>
+        <span>You'll receive a confirmation email shortly with your order details.</span>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-icon">🎨</div>
+      <div class="step-text">
+        <strong>Elsie gets to work</strong>
+        <span>For commissions Elsie will be in touch within 2 days. For merch and prints your order is being prepared!</span>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-icon">📦</div>
+      <div class="step-text">
+        <strong>Your order is on its way</strong>
+        <span>You'll receive a tracking number by email as soon as your order is shipped.</span>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-icon">💜</div>
+      <div class="step-text">
+        <strong>Share the love!</strong>
+        <span>If you love your piece, tell your friends about The Butterflii Art Studio!</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="btns">
+    <a href="index.html" class="btn-home">🏠 Back to Home</a>
+    <a href="shop.html" class="btn-shop">🛍️ Keep Shopping</a>
+  </div>
+</div>
+
+<script>
+// CONFETTI
+var colors = ['#c45ef5','#ffb3d1','#f9c84a','#ffffff','#9b2fd4','#ffe0ef'];
+var shapes = ['circle','square','triangle'];
+var confettiWrap = document.getElementById('confetti');
+
+function makeConfetti() {
+  for(var i=0; i<120; i++) {
+    setTimeout(function() {
+      var el = document.createElement('div');
+      var color = colors[Math.floor(Math.random()*colors.length)];
+      var size = Math.random()*10+6;
+      var shape = shapes[Math.floor(Math.random()*shapes.length)];
+      el.style.cssText = 'position:absolute;top:-20px;left:'+Math.random()*100+'vw;width:'+size+'px;height:'+size+'px;background:'+color+';border-radius:'+(shape==='circle'?'50%':shape==='triangle'?'0':'4px')+';animation:confettiFall '+(Math.random()*3+2)+'s '+(Math.random()*2)+'s linear forwards;';
+      if(shape==='triangle'){el.style.background='transparent';el.style.borderLeft=size/2+'px solid transparent';el.style.borderRight=size/2+'px solid transparent';el.style.borderBottom=size+'px solid '+color;}
+      confettiWrap.appendChild(el);
+      setTimeout(function(){el.remove();},6000);
+    }, Math.random()*2000);
+  }
+}
+
+// BUTTERFLIES
+var bfWrap = document.getElementById('butterflies');
+function makeButterflies() {
+  for(var i=0; i<18; i++) {
+    setTimeout(function() {
+      var el = document.createElement('div');
+      var startX = Math.random()*100+'vw';
+      var startY = Math.random()*100+'vh';
+      var tx = (Math.random()-0.5)*400+'px';
+      var ty = (Math.random()-0.5)*400+'px';
+      el.textContent = '🦋';
+      el.style.cssText = 'position:absolute;left:'+startX+';top:'+startY+';font-size:'+(Math.random()*1.5+1)+'rem;opacity:0;--tx:'+tx+';--ty:'+ty+';animation:bfFly '+(Math.random()*3+2)+'s '+(Math.random()*3)+'s ease-in-out forwards;';
+      bfWrap.appendChild(el);
+      setTimeout(function(){el.remove();},8000);
+    }, Math.random()*3000);
+  }
+}
+
+// SPARKLES around card
+function makeSparkles() {
+  var card = document.getElementById('card');
+  var sparkles = ['✨','💜','🌸','⭐','💫','🦋'];
+  for(var i=0; i<12; i++) {
+    setTimeout(function() {
+      var el = document.createElement('div');
+      el.className = 'sparkle';
+      el.textContent = sparkles[Math.floor(Math.random()*sparkles.length)];
+      el.style.cssText = 'left:'+(Math.random()*120-10)+'%;top:'+(Math.random()*120-10)+'%;animation-delay:'+Math.random()*0.5+'s;';
+      card.appendChild(el);
+      setTimeout(function(){el.remove();},1000);
+    }, i*200);
+  }
+}
+
+// Fire everything!
+makeConfetti();
+makeButterflies();
+makeSparkles();
+
+// Repeat confetti and butterflies
+setInterval(makeConfetti, 5000);
+setInterval(makeButterflies, 4000);
+setInterval(makeSparkles, 3000);
+</script>
+</body>
+</html>
