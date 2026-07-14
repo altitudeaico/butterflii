@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-purple: #c45ef5;
+  --color-brand-purple-deep: #9b2fd4;
+  --color-brand-pink: #ffb3d1;
+  --color-brand-gold: #f9c84a;
+  --color-brand-dark: #2a0a3e;
+  --color-brand-cream: #fff8fc;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background: var(--color-brand-cream);
+  color: var(--color-brand-dark);
+  -webkit-tap-highlight-color: transparent;
+}
