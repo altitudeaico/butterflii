@@ -46,7 +46,7 @@ if (signInError || !signInData.session) {
     .insert({ id: crypto.randomUUID(), display_name: 'Intruder', role: 'super_admin' })
   report(
     'insert a new super_admin row is denied',
-    !!insertError,
+    isPostgrestDenial(insertError),
     insertError ? insertError.message : 'insert unexpectedly succeeded',
   )
 
@@ -56,7 +56,7 @@ if (signInError || !signInData.session) {
     .eq('id', myId)
   report(
     'escalating own role to super_admin is denied',
-    !!updateError,
+    isPostgrestDenial(updateError),
     updateError ? updateError.message : 'update unexpectedly succeeded',
   )
 
@@ -68,9 +68,17 @@ const anonClient = createClient(url, anonKey, { db: { schema: 'hq' } })
 const { data: anonRows, error: anonError } = await anonClient.from('profiles').select('*')
 report(
   'anonymous select on profiles is denied',
-  !!anonError || (anonRows?.length ?? 0) === 0,
+  isPostgrestDenial(anonError) || (!anonError && (anonRows?.length ?? 0) === 0),
   anonError ? anonError.message : `returned ${anonRows?.length ?? 0} rows`,
 )
+
+// A real Postgres/PostgREST denial always carries a `code` (e.g. 42501 for
+// permission denied, P0001 for the role-change trigger's raised exception).
+// Anything else, a proxy/network failure, a bad URL, is not a valid pass and
+// must not be conflated with an actual RLS/permission denial.
+function isPostgrestDenial(error) {
+  return !!error?.code
+}
 
 console.log(failures === 0 ? '\nAll RLS checks passed.' : `\n${failures} RLS check(s) FAILED.`)
 process.exit(failures === 0 ? 0 : 1)

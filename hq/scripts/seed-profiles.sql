@@ -59,13 +59,34 @@ execute function hq.prevent_unauthorized_role_change();
 
 -- No delete policy: deletes default-deny via the API.
 
--- Seed the three real profiles. The two adult UUIDs already exist in
--- auth.users on this project; Elsie's must be created first (Supabase
--- Studio > Authentication > Users > Add user, email elsieolatoye@gmail.com,
--- password = her 6-digit PIN, Auto Confirm checked), then replace the
--- placeholder UUID below before running this final insert.
+-- A schema created outside of `public` doesn't inherit Supabase's default
+-- privilege grants. Without these, RLS never even gets evaluated: Postgres
+-- checks schema/table-level GRANTs first and RLS policies second, so this
+-- was silently blocking every legitimate read/write too, not just intruders.
+-- No grants to `anon` at all: there is no anon-facing use case for profiles,
+-- and no RLS policy allows it, so anon gets a flat permission denial.
+grant usage on schema hq to authenticated;
+grant select, insert, update on hq.profiles to authenticated;
+
+-- Exposing a schema grants EXECUTE on its functions to PUBLIC by default,
+-- making these SECURITY DEFINER helpers callable directly as RPC endpoints.
+-- `authenticated` must keep EXECUTE on current_profile_role(): RLS policy
+-- expressions run under the querying role's own privileges, so revoking it
+-- there breaks every policy that calls it (confirmed by testing). `anon`
+-- never needs it. prevent_unauthorized_role_change() is a trigger function;
+-- Postgres fires triggers without an EXECUTE check on the DML-issuing role,
+-- so revoking it from both anon and authenticated is safe and just closes
+-- off direct RPC invocation, without affecting the trigger itself.
+revoke execute on function hq.current_profile_role() from public;
+grant execute on function hq.current_profile_role() to authenticated;
+revoke execute on function hq.prevent_unauthorized_role_change() from public;
+
+-- Seed the three real profiles. All three auth.users rows must already
+-- exist: the two adults were pre-existing on this project; Elsie's was
+-- created via Supabase Studio > Authentication > Users > Add user (email
+-- elsieolatoye@gmail.com, password = her 6-digit PIN, Auto Confirm checked).
 insert into hq.profiles (id, display_name, role, avatar) values
   ('6db243b3-5569-42df-be96-a1833ce3b628', 'Owner', 'super_admin', '🦋'),
-  ('68df4017-63f1-489e-8574-29f40e67b61c', 'Funmi', 'ops_admin', '🦋')
-  -- , ('<elsieolatoye@gmail.com auth uid>', 'Elsie', 'artist', '🎨')
+  ('68df4017-63f1-489e-8574-29f40e67b61c', 'Funmi', 'ops_admin', '🦋'),
+  ('0ad8d252-eaf6-4ec6-acbf-1b453bcb1556', 'Elsie', 'artist', '🎨')
 on conflict (id) do nothing;
