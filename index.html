@@ -79,10 +79,18 @@ body{background:var(--cream);font-family:'Quicksand',sans-serif;color:var(--dark
 .about-blob-art .inner-art{font-size:6rem;z-index:2;position:relative;}
 .about-sticker{position:absolute;bottom:-18px;right:-18px;background:var(--gold);border-radius:50px;padding:14px 26px;font-family:'Playfair Display',serif;font-style:italic;font-size:1.05rem;color:var(--dark);box-shadow:0 8px 28px rgba(249,200,74,0.45);}
 .about-sticker-2{position:absolute;top:-18px;left:-18px;background:var(--pink);border-radius:50px;padding:11px 22px;font-size:0.8rem;font-weight:700;color:var(--purple-deep);box-shadow:0 6px 20px rgba(255,179,209,0.5);}
-.photo-slider{position:relative;width:100%;max-width:420px;aspect-ratio:3/4;border-radius:40px;overflow:hidden;box-shadow:0 24px 60px rgba(196,94,245,0.25);touch-action:pan-y;}
-.slider-track{display:flex;width:100%;height:100%;transition:transform 0.6s cubic-bezier(.65,0,.35,1);}
-.slider-track .slide{flex:0 0 100%;width:100%;height:100%;}
-.slider-track .slide img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;user-select:none;-webkit-user-drag:none;}
+.photo-slider{position:relative;width:100%;max-width:420px;aspect-ratio:3/4;border-radius:40px;overflow:hidden;box-shadow:0 24px 60px rgba(196,94,245,0.25);touch-action:pan-y;background:var(--dark);}
+.slider-stage{position:relative;width:100%;height:100%;}
+.slider-stage .slide{position:absolute;inset:0;opacity:0;transform:scale(1.08);filter:blur(14px) saturate(1.3);transition:opacity 0.9s ease,transform 0.9s ease,filter 0.9s ease;}
+.slider-stage .slide.active{opacity:1;transform:scale(1);filter:blur(0) saturate(1);z-index:1;}
+.slider-stage .slide img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;user-select:none;-webkit-user-drag:none;}
+.sparkle-layer{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:2;}
+.sparkle{position:absolute;opacity:0;color:var(--gold);filter:drop-shadow(0 0 5px rgba(249,200,74,0.9));animation:sparklePop 1.1s ease forwards;}
+@keyframes sparklePop{
+  0%{opacity:0;transform:scale(0.2) rotate(0deg);}
+  30%{opacity:1;transform:scale(1.2) rotate(90deg);}
+  100%{opacity:0;transform:scale(0.25) rotate(200deg) translateY(-18px);}
+}
 .slider-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:3;}
 .slider-dots .dot{width:8px;height:8px;border-radius:50px;background:rgba(255,255,255,0.5);border:1.5px solid rgba(255,255,255,0.7);padding:0;cursor:pointer;transition:all 0.25s;}
 .slider-dots .dot.active{background:white;width:22px;}
@@ -321,10 +329,11 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
 <section class="about" id="about">
   <div class="about-visual">
     <div class="photo-slider" id="photo-slider">
-      <div class="slider-track" id="slider-track">
-        <div class="slide"><img src="images/elsie-1.jpg" alt="Elsie — The Artist" loading="eager"/></div>
+      <div class="slider-stage" id="slider-stage">
+        <div class="slide active"><img src="images/elsie-1.jpg" alt="Elsie — The Artist" loading="eager"/></div>
         <div class="slide"><img src="images/elsie-2.jpg" alt="Elsie — The Artist" loading="lazy"/></div>
       </div>
+      <div class="sparkle-layer" id="sparkle-layer"></div>
       <div class="slider-dots" id="slider-dots">
         <button class="dot active" onclick="goToSlide(0)" aria-label="Photo 1"></button>
         <button class="dot" onclick="goToSlide(1)" aria-label="Photo 2"></button>
@@ -427,18 +436,39 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
 </div>
 
 <script>
-// Photo slider
+// Photo slider — fade + sparkle dissolve transition
 (function(){
-  var track = document.getElementById('slider-track');
+  var stage = document.getElementById('slider-stage');
+  var slides = stage.querySelectorAll('.slide');
+  var sparkleLayer = document.getElementById('sparkle-layer');
   var dots = document.querySelectorAll('#slider-dots .dot');
   var idx = 0;
-  var total = dots.length;
+  var total = slides.length;
   var timer;
 
+  function spawnSparkles(){
+    var count = 16;
+    for(var i = 0; i < count; i++){
+      var s = document.createElement('span');
+      s.className = 'sparkle';
+      s.textContent = Math.random() > 0.5 ? '✨' : '💫';
+      s.style.left = (Math.random() * 88 + 4) + '%';
+      s.style.top = (Math.random() * 88 + 4) + '%';
+      s.style.fontSize = (0.7 + Math.random() * 1) + 'rem';
+      s.style.animationDelay = (Math.random() * 0.3) + 's';
+      sparkleLayer.appendChild(s);
+      (function(el){ setTimeout(function(){ el.remove(); }, 1500); })(s);
+    }
+  }
+
   function show(i){
-    idx = (i + total) % total;
-    track.style.transform = 'translateX(-' + (idx * 100) + '%)';
+    var next = (i + total) % total;
+    if(next === idx) return;
+    slides[idx].classList.remove('active');
+    slides[next].classList.add('active');
+    idx = next;
     dots.forEach(function(d, j){ d.classList.toggle('active', j === idx); });
+    spawnSparkles();
   }
 
   function resetAutoplay(){
@@ -449,8 +479,8 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
   window.goToSlide = function(i){ show(i); resetAutoplay(); };
 
   var startX = null;
-  track.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; }, {passive:true});
-  track.addEventListener('touchend', function(e){
+  stage.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; }, {passive:true});
+  stage.addEventListener('touchend', function(e){
     if(startX === null) return;
     var dx = e.changedTouches[0].clientX - startX;
     if(Math.abs(dx) > 40){ show(idx + (dx < 0 ? 1 : -1)); resetAutoplay(); }
@@ -468,10 +498,10 @@ function closeMenu(){document.getElementById("mobile-menu").classList.remove("op
 window.addEventListener('scroll', function(){
   if(window.scrollY > 60){
     nav.classList.add('scrolled');
-    navBfIcon.style.color = 'var(--purple)';
+    if(navBfIcon) navBfIcon.style.color = 'var(--purple)';
   } else {
     nav.classList.remove('scrolled');
-    navBfIcon.style.color = 'white';
+    if(navBfIcon) navBfIcon.style.color = 'white';
   }
 });
 
