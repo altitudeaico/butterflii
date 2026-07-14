@@ -11,6 +11,8 @@ import { Button } from '../components/Button'
 export function LoginPage() {
   const { session, profile, loading } = useAuth()
   const [showAdultForm, setShowAdultForm] = useState(false)
+  const [showForgotPassword, setShowForgotPassword] = useState(false)
+  const [resetSent, setResetSent] = useState(false)
   const [selectedArtist, setSelectedArtist] = useState<(typeof artistLogins)[number] | null>(null)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -28,6 +30,21 @@ export function LoginPage() {
     const { error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) setError('That email and password combination did not work.')
     setSubmitting(false)
+  }
+
+  async function handleForgotPassword(e: React.FormEvent) {
+    e.preventDefault()
+    setSubmitting(true)
+    setError(null)
+    // Redirect straight back to wherever this app is actually running (the
+    // interim GitHub Pages subpath today, the custom domain later, or
+    // localhost in dev) rather than the project's shared Site URL default,
+    // which points at an unrelated app also hosted on this Supabase project.
+    const redirectTo = `${window.location.origin}${window.location.pathname}`
+    const { error } = await supabase.auth.resetPasswordForEmail(email, { redirectTo })
+    setSubmitting(false)
+    if (error) setError('Could not send a reset link, try again.')
+    else setResetSent(true)
   }
 
   async function handlePin(pin: string) {
@@ -63,6 +80,52 @@ export function LoginPage() {
             Not you?
           </button>
         </div>
+      ) : showForgotPassword ? (
+        resetSent ? (
+          <div className="flex w-full max-w-xs flex-col items-center gap-4 text-center">
+            <p className="text-brand-dark/70">
+              Check {email} for a link to set a new password.
+            </p>
+            <button
+              type="button"
+              className="text-sm text-brand-dark/50 underline"
+              onClick={() => {
+                setShowForgotPassword(false)
+                setResetSent(false)
+              }}
+            >
+              Back to sign in
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={handleForgotPassword} className="flex w-full max-w-xs flex-col gap-3">
+            <p className="text-center text-sm text-brand-dark/60">
+              Enter your email and we will send you a link to set a new password.
+            </p>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              autoComplete="email"
+              required
+              className="min-h-11 rounded-2xl border border-brand-pink/50 px-4 py-2 outline-none focus:border-brand-purple"
+            />
+            <Button type="submit" disabled={submitting}>
+              {submitting ? 'Sending...' : 'Send reset link'}
+            </Button>
+            <button
+              type="button"
+              className="text-sm text-brand-dark/50 underline"
+              onClick={() => {
+                setShowForgotPassword(false)
+                setError(null)
+              }}
+            >
+              Back
+            </button>
+          </form>
+        )
       ) : showAdultForm ? (
         <form onSubmit={handleAdultSubmit} className="flex w-full max-w-xs flex-col gap-3">
           <input
@@ -86,6 +149,13 @@ export function LoginPage() {
           <Button type="submit" disabled={submitting}>
             {submitting ? 'Signing in...' : 'Sign in'}
           </Button>
+          <button
+            type="button"
+            className="text-sm text-brand-dark/50 underline"
+            onClick={() => setShowForgotPassword(true)}
+          >
+            Forgot password?
+          </button>
           <button
             type="button"
             className="text-sm text-brand-dark/50 underline"
