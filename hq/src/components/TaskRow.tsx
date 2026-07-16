@@ -57,10 +57,10 @@ export function TaskRow({
       }`}
     >
       <div className="min-w-0 flex-1">
-        <p className={`truncate font-semibold ${emphasize ? 'text-red-700' : 'text-brand-dark'}`}>
+        <p className={`break-words font-semibold ${emphasize ? 'text-red-700' : 'text-brand-dark'}`}>
           {task.title}
         </p>
-        <p className="mt-0.5 truncate text-xs text-brand-dark/50">
+        <p className="mt-0.5 break-words text-xs text-brand-dark/50">
           {ownerName}
           {ownerName && deadline ? ' · ' : ''}
           {deadline}
@@ -68,18 +68,30 @@ export function TaskRow({
       </div>
       <div className="flex shrink-0 items-center gap-2">
         <StatusChip label={label} tone={chipTone} />
-        {onToggleDone && task.status !== 'done' && (
-          <button
-            onClick={(e) => {
-              e.stopPropagation()
-              onToggleDone()
-            }}
-            aria-label="Mark done"
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-purple text-white shadow-sm transition-transform active:scale-90"
-          >
-            ✓
-          </button>
-        )}
+        {onToggleDone &&
+          (task.status === 'done' ? (
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                onToggleDone()
+              }}
+              aria-label="Undo"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-dark/10 text-brand-dark/60 shadow-sm transition-transform active:scale-90"
+            >
+              ↺
+            </button>
+          ) : (
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                onToggleDone()
+              }}
+              aria-label="Mark done"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-purple text-white shadow-sm transition-transform active:scale-90"
+            >
+              ✓
+            </button>
+          ))}
       </div>
     </div>
   )

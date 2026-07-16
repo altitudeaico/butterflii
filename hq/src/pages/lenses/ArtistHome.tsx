@@ -30,7 +30,7 @@ export function ArtistHome() {
 
   return (
     <div className="mx-auto flex min-h-screen max-w-lg flex-col items-center gap-6 px-6 py-10 text-center">
-      <span className="text-6xl">🦋</span>
+      <img src={`${import.meta.env.BASE_URL}logo-mark.png`} alt="Butterflii" className="h-16 w-auto" />
       <h1 className="font-serif text-3xl text-brand-purple-deep">Hi {profile?.display_name}!</h1>
 
       {!event ? (
@@ -54,7 +54,9 @@ export function ArtistHome() {
                 key={task.id}
                 task={task}
                 tone="encouraging"
-                onToggleDone={() => updateStatus.mutate({ id: task.id, status: 'done' })}
+                onToggleDone={() =>
+                  updateStatus.mutate({ id: task.id, status: task.status === 'done' ? 'todo' : 'done' })
+                }
               />
             ))}
           </div>
