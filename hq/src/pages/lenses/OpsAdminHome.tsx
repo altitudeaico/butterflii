@@ -76,7 +76,9 @@ export function OpsAdminHome() {
                   tone="accountable"
                   ownerName={profileName(profiles, task.owner_id)}
                   onClick={() => setSheet({ kind: 'edit', task })}
-                  onToggleDone={() => updateStatus.mutate({ id: task.id, status: 'done' })}
+                  onToggleDone={() =>
+                    updateStatus.mutate({ id: task.id, status: task.status === 'done' ? 'todo' : 'done' })
+                  }
                 />
               ))}
               {attentionList.length === 0 && (
@@ -107,7 +109,9 @@ export function OpsAdminHome() {
                   tone="accountable"
                   ownerName={profileName(profiles, task.owner_id)}
                   onClick={() => setSheet({ kind: 'edit', task })}
-                  onToggleDone={() => updateStatus.mutate({ id: task.id, status: 'done' })}
+                  onToggleDone={() =>
+                    updateStatus.mutate({ id: task.id, status: task.status === 'done' ? 'todo' : 'done' })
+                  }
                 />
               ))}
               {myTasks.length === 0 && (
