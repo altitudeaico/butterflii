@@ -163,7 +163,6 @@ footer{background:var(--dark);padding:48px;text-align:center;}
     <li><a href="index.html">Home</a></li>
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="shop.html" class="active" style="color:var(--purple);">Shop</a></li>
-    <li><a href="order.html">Order</a></li>
     <li><a href="commission.html">Commission</a></li>
   </ul>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
@@ -173,7 +172,6 @@ footer{background:var(--dark);padding:48px;text-align:center;}
   <a href="index.html" onclick="closeMenu()">Home</a>
   <a href="gallery.html" onclick="closeMenu()">Gallery</a>
   <a href="shop.html" class="active" onclick="closeMenu()">Shop</a>
-  <a href="order.html" onclick="closeMenu()">Order</a>
   <a href="commission.html" onclick="closeMenu()">Commission</a>
 </div>
 
@@ -356,7 +354,7 @@ footer{background:var(--dark);padding:48px;text-align:center;}
   </div>
 </div>
 
-<!-- SECTION 3: MAKE YOUR OWN -->
+<!-- ARCHIVED: Make Your Own Station (custom painting-on-product ordering, plus its success modal) disabled alongside the merch pause. Delete this whole comment block to restore it.
 <div class="section-wrap dark">
   <div class="inner">
     <p class="sec-eyebrow light">✦ Custom Orders</p>
@@ -365,7 +363,6 @@ footer{background:var(--dark);padding:48px;text-align:center;}
     <div class="station">
       <div class="station-grid">
 
-        <!-- LEFT: PICKER -->
         <div>
           <span class="station-label">Step 1 — Choose a painting</span>
           <div class="thumbs-grid"><div class="thumb-card" onclick="selectPainting(this, 'Turtle in the sea')" data-name="Turtle in the sea">
@@ -411,7 +408,6 @@ footer{background:var(--dark);padding:48px;text-align:center;}
           </div>
         </div>
 
-        <!-- RIGHT: FORM -->
         <div>
           <span class="station-label">Step 3 — Your details</span>
           <div class="order-summary" id="order-summary">
@@ -433,7 +429,6 @@ footer{background:var(--dark);padding:48px;text-align:center;}
   </div>
 </div>
 
-<!-- SUCCESS MODAL -->
 <div class="modal-overlay" id="modal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <button class="modal-close" onclick="closeModal()">×</button>
@@ -442,6 +437,7 @@ footer{background:var(--dark);padding:48px;text-align:center;}
     <p id="modal-msg">Thank you so much! Elsie will be in touch very soon to confirm your order and arrange payment. 💜</p>
   </div>
 </div>
+-->
 
 <footer>
   <div class="footer-logo-text">The <em>Butterflii</em> Art Studio</div>
