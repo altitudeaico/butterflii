@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Gallery — The Butterflii Art Studio</title>
+<title>The Butterflii Art Studio</title>
 <meta name="theme-color" content="#c45ef5"/>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -31,67 +31,29 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:16px 48px;display:fl
 .nav-links a.active{color:var(--purple);border-bottom:2px solid var(--purple);padding-bottom:2px;}
 .hamburger{display:none;background:none;border:none;cursor:pointer;padding:4px;flex-direction:column;gap:5px;z-index:101;}
 .hamburger span{display:block;width:24px;height:2px;background:var(--dark);border-radius:2px;transition:all 0.3s;}
-.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(255,248,252,0.99);backdrop-filter:blur(20px);padding:16px 24px 24px;box-shadow:0 8px 24px rgba(196,94,245,0.15);z-index:99;max-height:calc(100vh - 64px);overflow-y:auto;}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(255,248,252,0.99);backdrop-filter:blur(20px);padding:16px 24px 24px;box-shadow:0 8px 24px rgba(196,94,245,0.15);z-index:99;}
 .mobile-menu.open{display:block;}
 .mobile-menu a{display:block;padding:14px 0;font-size:0.85rem;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:var(--dark);text-decoration:none;border-bottom:1px solid var(--pink-soft);}
 .mobile-menu a:last-child{border:none;}
 .mobile-menu a:hover,.mobile-menu a.active{color:var(--purple);}
 
-/* HERO BANNER */
-.gallery-hero{background:#c45ef5;padding:140px 48px 80px;text-align:center;position:relative;overflow:hidden;}
-.gallery-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(255,179,209,0.3) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(249,200,74,0.2) 0%,transparent 60%);pointer-events:none;}
-.gallery-hero-inner{position:relative;z-index:1;}
-.eyebrow{font-size:0.72rem;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,0.7);font-weight:700;margin-bottom:16px;display:block;}
-.gallery-hero h1{font-family:'Great Vibes',cursive;font-size:clamp(3.5rem,9vw,7rem);color:white;margin-bottom:16px;filter:drop-shadow(0 4px 20px rgba(0,0,0,0.15));}
-.gallery-hero p{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:rgba(255,255,255,0.85);font-style:italic;}
-
-/* FILTER BAR */
-.filter-bar{background:white;border-bottom:1px solid var(--pink-soft);padding:20px 48px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;position:sticky;top:60px;z-index:50;}
-.filter-label{font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;color:#aaa;font-weight:700;margin-right:8px;}
-.filter-btn{background:transparent;border:1.5px solid var(--pink);color:var(--dark);border-radius:50px;padding:7px 20px;font-family:'Quicksand',sans-serif;font-size:0.78rem;font-weight:700;cursor:pointer;transition:all 0.2s;}
-.filter-btn:hover,.filter-btn.active{background:var(--purple);border-color:var(--purple);color:white;}
-
-/* GALLERY GRID */
-.gallery-section{padding:60px 48px 100px;max-width:1300px;margin:0 auto;}
-.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;}
-
-/* ART CARD */
-.art-card{background:white;border-radius:24px;overflow:hidden;box-shadow:0 4px 24px rgba(196,94,245,0.08);transition:all 0.35s;border:1.5px solid var(--pink-soft);}
-.art-card:hover{transform:translateY(-10px);box-shadow:0 20px 60px rgba(196,94,245,0.2);border-color:var(--purple);}
-.art-img-wrap{position:relative;aspect-ratio:4/3;overflow:hidden;}
-.art-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform 0.5s;display:block;}
-.art-card:hover .art-img-wrap img{transform:scale(1.05);}
-.art-badge{position:absolute;top:14px;left:14px;background:var(--gold);color:var(--dark);font-size:0.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:5px 14px;border-radius:50px;}
-.art-body{padding:24px;}
-.art-medium{font-size:0.68rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple);font-weight:700;margin-bottom:8px;}
-.art-name{font-family:'Great Vibes',cursive;font-size:1.8rem;color:var(--dark);margin-bottom:10px;line-height:1.2;}
-.art-desc{font-family:'Cormorant Garamond',serif;font-size:1rem;color:#888;line-height:1.7;margin-bottom:20px;font-style:italic;}
-.art-footer{display:flex;align-items:center;justify-content:space-between;padding-top:16px;border-top:1px solid var(--pink-soft);}
-.art-price{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--dark);font-weight:700;}
-.enquire-btn{background:var(--purple);color:white;border:none;border-radius:50px;padding:11px 26px;font-family:'Quicksand',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all 0.25s;text-decoration:none;display:inline-block;}
-.enquire-btn:hover{background:var(--purple-deep);transform:translateY(-2px);box-shadow:0 8px 24px rgba(196,94,245,0.35);}
-
-/* MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(42,10,62,0.88);z-index:999;display:none;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(8px);}
-.modal-overlay.show{display:flex;}
-.modal{background:white;border-radius:28px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;padding:40px;position:relative;animation:modalIn 0.3s ease;}
-@keyframes modalIn{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
-.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#ccc;line-height:1;}
-.modal-close:hover{color:var(--purple);}
-.modal h2{font-family:'Great Vibes',cursive;font-size:2.2rem;color:var(--dark);margin-bottom:6px;}
-.modal-medium{font-size:0.7rem;letter-spacing:2px;text-transform:uppercase;color:var(--purple);font-weight:700;margin-bottom:4px;}
-.modal-price{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--dark);margin-bottom:20px;}
-.modal-desc{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:#666;line-height:1.8;font-style:italic;margin-bottom:28px;}
-.modal-form{display:grid;gap:12px;}
-.modal-form input,.modal-form textarea{background:#fff8fc;border:1.5px solid var(--pink-soft);border-radius:12px;padding:13px 16px;font-family:'Quicksand',sans-serif;font-size:0.9rem;outline:none;transition:border-color 0.2s;width:100%;color:var(--dark);}
-.modal-form input:focus,.modal-form textarea:focus{border-color:var(--purple);}
-.modal-form textarea{height:90px;resize:none;}
-.modal-submit{background:var(--purple);color:white;border:none;border-radius:50px;padding:15px;font-family:'Quicksand',sans-serif;font-weight:700;font-size:0.9rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all 0.25s;width:100%;}
-.modal-submit:hover{background:var(--purple-deep);}
-.modal-success{display:none;text-align:center;padding:20px 0;}
-.modal-success .tick{font-size:3rem;margin-bottom:12px;}
-.modal-success h3{font-family:'Great Vibes',cursive;font-size:2rem;color:var(--purple);margin-bottom:8px;}
-.modal-success p{color:#888;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;}
+/* PIECE DETAIL */
+.piece-section{max-width:1100px;margin:0 auto;padding:140px 48px 100px;}
+.back-link{display:inline-block;margin-bottom:32px;color:var(--purple);font-weight:700;font-size:0.85rem;letter-spacing:1px;text-decoration:none;}
+.back-link:hover{color:var(--purple-deep);}
+.piece-wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;}
+.piece-img-wrap{border-radius:24px;overflow:hidden;box-shadow:0 20px 60px rgba(196,94,245,0.18);border:1.5px solid var(--pink-soft);background:white;}
+.piece-img-wrap img{width:100%;display:block;}
+.piece-medium{font-size:0.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--purple);font-weight:700;margin-bottom:10px;}
+.piece-name{font-family:'Great Vibes',cursive;font-size:3.2rem;color:var(--dark);margin-bottom:18px;line-height:1.1;}
+.piece-desc{font-family:'Cormorant Garamond',serif;font-size:1.25rem;color:#777;line-height:1.75;font-style:italic;margin-bottom:32px;}
+.piece-footer{display:flex;align-items:center;gap:24px;margin-bottom:20px;flex-wrap:wrap;}
+.piece-price{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--dark);font-weight:700;}
+.buy-btn-lg{background:var(--purple);color:white;border:none;border-radius:50px;padding:16px 36px;font-family:'Quicksand',sans-serif;font-size:0.85rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all 0.25s;text-decoration:none;display:inline-block;}
+.buy-btn-lg:hover{background:var(--purple-deep);transform:translateY(-2px);box-shadow:0 8px 24px rgba(196,94,245,0.35);}
+.piece-note{font-size:0.8rem;color:#aaa;font-style:italic;}
+.piece-notfound{text-align:center;padding:60px 20px;}
+.piece-notfound p{font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#888;font-style:italic;margin-bottom:24px;}
 
 /* FOOTER */
 footer{background:var(--dark);padding:48px;text-align:center;}
@@ -99,16 +61,10 @@ footer{background:var(--dark);padding:48px;text-align:center;}
 .footer-logo-text em{color:var(--purple);font-style:normal;}
 .footer-copy{color:rgba(255,255,255,0.25);font-size:0.78rem;margin-top:12px;}
 
-@media(max-width:900px){
-  .gallery-grid{grid-template-columns:repeat(2,1fr);gap:20px;}
-  nav{padding:14px 20px;}
-
-  .gallery-hero{padding:120px 24px 60px;}
-  .gallery-section{padding:40px 20px 80px;}
-  .filter-bar{padding:16px 20px;}
-}
-@media(max-width:560px){
-  .gallery-grid{grid-template-columns:1fr;}
+@media(max-width:800px){
+  .piece-wrap{grid-template-columns:1fr;gap:32px;}
+  .piece-section{padding:110px 20px 60px;}
+  .piece-name{font-size:2.4rem;}
 }
 @media(max-width:760px){
   .nav-links{display:none;}
@@ -125,7 +81,7 @@ footer{background:var(--dark);padding:48px;text-align:center;}
   </a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
-    <li><a href="gallery.html" class="active" style="color:var(--purple);">Gallery</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
     <li><a href="shop.html">Shop</a></li>
     <li><a href="order.html">Order</a></li>
     <li><a href="commission.html">Commission</a></li>
@@ -135,183 +91,36 @@ footer{background:var(--dark);padding:48px;text-align:center;}
 
 <div class="mobile-menu" id="mobile-menu">
   <a href="index.html" onclick="closeMenu()">Home</a>
-  <a href="gallery.html" class="active" onclick="closeMenu()">Gallery</a>
+  <a href="gallery.html" onclick="closeMenu()">Gallery</a>
   <a href="shop.html" onclick="closeMenu()">Shop</a>
   <a href="order.html" onclick="closeMenu()">Order</a>
   <a href="commission.html" onclick="closeMenu()">Commission</a>
 </div>
 
-<div class="gallery-hero">
-  <div class="gallery-hero-inner">
-    <span class="eyebrow">✦ The Collection</span>
-    <h1>The Gallery</h1>
-    <p>Every piece is original, one of a kind, and made with love by Elsie</p>
+<section class="piece-section">
+  <a href="gallery.html" class="back-link">&larr; Back to the Gallery</a>
+
+  <div class="piece-wrap" id="piece-wrap">
+    <div class="piece-img-wrap">
+      <img id="piece-img" src="" alt="">
+    </div>
+    <div>
+      <div class="piece-medium" id="piece-medium"></div>
+      <h1 class="piece-name" id="piece-name"></h1>
+      <p class="piece-desc" id="piece-desc"></p>
+      <div class="piece-footer">
+        <div class="piece-price" id="piece-price"></div>
+        <a href="#" id="piece-buy" class="buy-btn-lg">Buy Now &rarr;</a>
+      </div>
+      <p class="piece-note">One of a kind. Once it's sold, it's gone.</p>
+    </div>
   </div>
-</div>
 
-<div class="filter-bar">
-  <span class="filter-label">Filter</span>
-  <button class="filter-btn active" onclick="filterGallery('all', this)">All Works</button>
-  <button class="filter-btn" onclick="filterGallery('acrylic', this)">Acrylic</button>
-  <button class="filter-btn" onclick="filterGallery('watercolour', this)">Watercolour</button>
-  <button class="filter-btn" onclick="filterGallery('mixed', this)">Mixed Media</button>
-</div>
-
-<section class="gallery-section">
-  <div class="gallery-grid" id="gallery-grid">
-
-    <div class="art-card" data-medium="acrylic">
-      <div class="art-img-wrap">
-        <img src="images/art-turtle-in-the-sea.jpg" alt="Turtle in the sea painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Turtle in the sea</div>
-        <div class="art-desc">A gentle sea turtle drifting past a sun-warmed shoreline, painted in soft aquas and sandy gold.</div>
-        <div class="art-footer">
-          <div class="art-price">£15</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=turtle-in-the-sea'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic">
-      <div class="art-img-wrap">
-        <img src="images/art-lemons.jpg" alt="Lemons painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Lemons</div>
-        <div class="art-desc">Sun-ripe lemons on the branch against candy-stripe lilac, bright and juicy.</div>
-        <div class="art-footer">
-          <div class="art-price">£10</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=lemons'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic">
-      <div class="art-img-wrap">
-        <img src="images/art-sunset.jpg" alt="Sunset painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Sunset</div>
-        <div class="art-desc">Palm trees silhouetted against a blazing pink and gold horizon, waves rolling in below.</div>
-        <div class="art-footer">
-          <div class="art-price">£15</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=sunset'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic">
-      <div class="art-img-wrap">
-        <img src="images/art-giraffe.jpg" alt="Giraffe painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Giraffe</div>
-        <div class="art-desc">A giraffe watching the moon rise over a glowing sunset sky, birds drifting past.</div>
-        <div class="art-footer">
-          <div class="art-price">£10</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=giraffe'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic">
-      <div class="art-img-wrap">
-        <img src="images/art-red-sky.jpg" alt="Red Sky painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Red Sky</div>
-        <div class="art-desc">A fiery abstract sun over gentle painted waves, warm reds fading to soft pink.</div>
-        <div class="art-footer">
-          <div class="art-price">£10</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=red-sky'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic">
-      <div class="art-img-wrap">
-        <img src="images/art-starfish.jpg" alt="Starfish painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Starfish</div>
-        <div class="art-desc">Starfish caught between two leaning palms as the surf rolls onto a golden shore.</div>
-        <div class="art-footer">
-          <div class="art-price">£15</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=starfish'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic">
-      <div class="art-img-wrap">
-        <img src="images/art-bubbles.jpg" alt="Bubbles painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Bubbles</div>
-        <div class="art-desc">A shower of soft violet bubbles drifting down a clean white canvas.</div>
-        <div class="art-footer">
-          <div class="art-price">£10</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=bubbles'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic">
-      <div class="art-img-wrap">
-        <img src="images/art-abstract.jpg" alt="Abstract painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Abstract</div>
-        <div class="art-desc">Ribbons of pink, gold, and lilac sweeping into a small hand-painted rainbow.</div>
-        <div class="art-footer">
-          <div class="art-price">£10</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=abstract'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic">
-      <div class="art-img-wrap">
-        <img src="images/art-purple-abstract.jpg" alt="Purple abstract painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Purple abstract</div>
-        <div class="art-desc">Bold waves of purple rising beneath a glowing pink and gold sun.</div>
-        <div class="art-footer">
-          <div class="art-price">£10</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=purple-abstract'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
+  <div class="piece-notfound" id="piece-notfound" style="display:none;">
+    <p>We couldn't find that piece.</p>
+    <a href="gallery.html" class="buy-btn-lg">Back to the Gallery</a>
   </div>
 </section>
-
-<!-- ENQUIRE MODAL -->
-<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">×</button>
-    <div id="modal-form-wrap">
-      <div class="modal-medium" id="modal-medium"></div>
-      <h2 id="modal-title"></h2>
-      <div class="modal-price" id="modal-price"></div>
-      <p class="modal-desc" id="modal-desc"></p>
-      <div class="modal-form">
-        <input type="text" id="enq-name" placeholder="Your name"/>
-        <input type="email" id="enq-email" placeholder="Your email"/>
-        <textarea id="enq-msg" placeholder="Any questions or special requests?"></textarea>
-        <button class="modal-submit" onclick="submitEnquiry()">Send Enquiry ✦</button>
-      </div>
-    </div>
-    <div class="modal-success" id="modal-success">
-      <div class="tick">💜</div>
-      <h3>Thank you!</h3>
-      <p>Elsie will be in touch about your enquiry very soon!</p>
-    </div>
-  </div>
-</div>
 
 <footer>
   <div class="footer-logo-text">The <em>Butterflii</em> Art Studio</div>
@@ -322,41 +131,36 @@ footer{background:var(--dark);padding:48px;text-align:center;}
 function toggleMenu(){document.getElementById("mobile-menu").classList.toggle("open");}
 function closeMenu(){document.getElementById("mobile-menu").classList.remove("open");}
 
-function openModal(name, medium, price, desc) {
-  document.getElementById('modal-title').textContent = name;
-  document.getElementById('modal-medium').textContent = medium;
-  document.getElementById('modal-price').textContent = price;
-  document.getElementById('modal-desc').textContent = desc;
-  document.getElementById('modal-form-wrap').style.display = 'block';
-  document.getElementById('modal-success').style.display = 'none';
-  document.getElementById('modal').classList.add('show');
-  document.body.style.overflow = 'hidden';
+const ARTWORKS = {
+  'turtle-in-the-sea': { name: 'Turtle in the sea', medium: 'Acrylic on canvas', price: '£15', image: 'images/art-turtle-in-the-sea.jpg', stripe: 'https://buy.stripe.com/aFacN4fuG3qd8Ee8ZdejK00', desc: 'A gentle sea turtle drifting past a sun-warmed shoreline, painted in soft aquas and sandy gold.' },
+  'lemons': { name: 'Lemons', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-lemons.jpg', stripe: 'https://buy.stripe.com/eVqaEW5U67Gtf2C7V9ejK01', desc: 'Sun-ripe lemons on the branch against candy-stripe lilac, bright and juicy.' },
+  'sunset': { name: 'Sunset', medium: 'Acrylic on canvas', price: '£15', image: 'images/art-sunset.jpg', stripe: 'https://buy.stripe.com/3cI9AS82ee4R4nY6R5ejK02', desc: 'Palm trees silhouetted against a blazing pink and gold horizon, waves rolling in below.' },
+  'giraffe': { name: 'Giraffe', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-giraffe.jpg', stripe: 'https://buy.stripe.com/3cI6oG1DQgcZcUuejxejK03', desc: 'A giraffe watching the moon rise over a glowing sunset sky, birds drifting past.' },
+  'red-sky': { name: 'Red Sky', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-red-sky.jpg', stripe: 'https://buy.stripe.com/9B6bJ05U60e18EedftejK04', desc: 'A fiery abstract sun over gentle painted waves, warm reds fading to soft pink.' },
+  'starfish': { name: 'Starfish', medium: 'Acrylic on canvas', price: '£15', image: 'images/art-starfish.jpg', stripe: 'https://buy.stripe.com/cNidR83LYbWJ9Iia3hejK05', desc: 'Starfish caught between two leaning palms as the surf rolls onto a golden shore.' },
+  'bubbles': { name: 'Bubbles', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-bubbles.jpg', stripe: 'https://buy.stripe.com/4gM9AS1DQ9OB5s23ETejK06', desc: 'A shower of soft violet bubbles drifting down a clean white canvas.' },
+  'abstract': { name: 'Abstract', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-abstract.jpg', stripe: 'https://buy.stripe.com/7sY6oG1DQaSFg6G5N1ejK07', desc: 'Ribbons of pink, gold, and lilac sweeping into a small hand-painted rainbow.' },
+  'purple-abstract': { name: 'Purple abstract', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-purple-abstract.jpg', stripe: 'https://buy.stripe.com/3cIbJ0ciu7Gt3jUgrFejK08', desc: 'Bold waves of purple rising beneath a glowing pink and gold sun.' }
+};
+
+function loadPiece() {
+  const slug = new URLSearchParams(window.location.search).get('piece');
+  const piece = ARTWORKS[slug];
+  if (!piece) {
+    document.getElementById('piece-wrap').style.display = 'none';
+    document.getElementById('piece-notfound').style.display = 'block';
+    return;
+  }
+  document.title = piece.name + ' — The Butterflii Art Studio';
+  document.getElementById('piece-img').src = piece.image;
+  document.getElementById('piece-img').alt = piece.name + ' painting';
+  document.getElementById('piece-medium').textContent = piece.medium;
+  document.getElementById('piece-name').textContent = piece.name;
+  document.getElementById('piece-desc').textContent = piece.desc;
+  document.getElementById('piece-price').textContent = piece.price;
+  document.getElementById('piece-buy').href = piece.stripe;
 }
-function closeModal() {
-  document.getElementById('modal').classList.remove('show');
-  document.body.style.overflow = '';
-}
-function closeModalOutside(e) {
-  if (e.target === document.getElementById('modal')) closeModal();
-}
-function submitEnquiry() {
-  var name = document.getElementById('enq-name').value.trim();
-  var email = document.getElementById('enq-email').value.trim();
-  if (!name || !email) { alert('Please enter your name and email!'); return; }
-  document.getElementById('modal-form-wrap').style.display = 'none';
-  document.getElementById('modal-success').style.display = 'block';
-}
-function filterGallery(type, btn) {
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.art-card').forEach(card => {
-    if (type === 'all' || card.dataset.medium === type) {
-      card.style.display = 'block';
-    } else {
-      card.style.display = 'none';
-    }
-  });
-}
+loadPiece();
 </script>
 </body>
 </html>
