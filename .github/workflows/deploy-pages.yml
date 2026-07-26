@@ -41,6 +41,7 @@ jobs:
         run: |
           mkdir -p _site
           cp *.html _site/
+          cp *.js _site/
           cp -r images _site/
           mkdir -p _site/hq
           cp -r hq/dist/. _site/hq/
