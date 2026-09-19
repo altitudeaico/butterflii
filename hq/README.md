@@ -42,10 +42,10 @@ site).
    this, the app can't reach any of its own tables (PostgREST only exposes
    `public` by default).
 2. **Create the artist's login.** Supabase Dashboard > Authentication > Users
-   > Add user: email `elsieolatoye@gmail.com`, password = her 6-digit PIN,
-   "Auto Confirm User" checked. Then insert her `hq.profiles` row (see the
-   commented-out line at the bottom of `scripts/seed-profiles.sql`) using her
-   new auth UID.
+   > Add user with the artist's account details (see internal notes, not
+   committed here). "Auto Confirm User" checked. Then insert her
+   `hq.profiles` row (see the commented-out line at the bottom of
+   `scripts/seed-profiles.sql`) using her new auth UID.
 3. **Switch GitHub Pages source to "GitHub Actions."** Repo Settings > Pages >
    Build and deployment > Source. Needed for `.github/workflows/deploy-pages.yml`
    to publish the combined artifact (marketing site + `/hq/`).
@@ -56,7 +56,7 @@ site).
 
 ## Login
 
-Two adults sign in with real email + password
-(`hello@altitudeai.co` / `funmiolatoye@gmail.com`). The artist signs in by
-tapping her avatar and entering her PIN, never seeing an email field
-(`src/auth/artistLogins.ts` holds the avatar-to-account mapping).
+Two adults sign in with real email + password (see internal notes for
+credentials, not committed here). The artist signs in by tapping her avatar
+and entering her PIN, never seeing an email field (`src/auth/artistLogins.ts`
+holds the avatar-to-account mapping).
