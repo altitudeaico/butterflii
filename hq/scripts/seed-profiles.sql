@@ -83,8 +83,8 @@ revoke execute on function hq.prevent_unauthorized_role_change() from public;
 
 -- Seed the three real profiles. All three auth.users rows must already
 -- exist: the two adults were pre-existing on this project; Elsie's was
--- created via Supabase Studio > Authentication > Users > Add user (email
--- elsieolatoye@gmail.com, password = her 6-digit PIN, Auto Confirm checked).
+-- created via Supabase Studio > Authentication > Users > Add user (see
+-- internal notes for her login details, not committed here).
 insert into hq.profiles (id, display_name, role, avatar) values
   ('6db243b3-5569-42df-be96-a1833ce3b628', 'Owner', 'super_admin', '🦋'),
   ('68df4017-63f1-489e-8574-29f40e67b61c', 'Funmi', 'ops_admin', '🦋'),
