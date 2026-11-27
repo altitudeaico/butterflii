@@ -235,63 +235,7 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
 <body>
 
 <!-- PROMO BANNER -->
-<script src="promo-config.js"></script>
-<div hidden style="display:none!important" class="promo-banner" id="promo-banner" role="region" aria-label="Promotional offer">
-  <span class="promo-banner-bf" aria-hidden="true">&#129419;</span>
-  <div class="promo-banner-inner">
-    <span class="promo-banner-text">&#10022; <strong id="promo-banner-percent">20% OFF</strong> <span id="promo-banner-rest">your entire order</span></span>
-    <span class="promo-banner-code" id="promo-banner-code">CODE: ELSIE20</span>
-    <a href="shop.html" class="promo-banner-btn" id="promo-banner-btn">Shop Now</a>
-  </div>
-  <button class="promo-banner-close" id="promo-banner-close" aria-label="Dismiss promotional offer">&#10005;</button>
-</div>
-<script>
-(function(){
-  var cfg = window.PROMO_CONFIG || {};
-  var banner = document.getElementById('promo-banner');
-  if (!banner) return;
-
-  function setBannerHeight(h){
-    document.documentElement.style.setProperty('--promo-banner-h', h + 'px');
-  }
-  function hideBanner(){
-    banner.style.display = 'none';
-    setBannerHeight(0);
-  }
-
-  var dismissed = false;
-  try { dismissed = sessionStorage.getItem('promoBannerDismissed') === '1'; } catch(e){}
-
-  if (cfg.enabled === false || dismissed) {
-    hideBanner();
-  } else {
-    var percentEl = document.getElementById('promo-banner-percent');
-    var restEl = document.getElementById('promo-banner-rest');
-    var codeEl = document.getElementById('promo-banner-code');
-    var btnEl = document.getElementById('promo-banner-btn');
-    if (percentEl && cfg.discountPercent) percentEl.textContent = cfg.discountPercent + ' OFF';
-    if (restEl && cfg.discountRest) restEl.textContent = cfg.discountRest;
-    if (codeEl && cfg.code) codeEl.textContent = 'CODE: ' + cfg.code;
-    if (btnEl && cfg.shopUrl) btnEl.setAttribute('href', cfg.shopUrl);
-
-    var closeBtn = document.getElementById('promo-banner-close');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', function(){
-        hideBanner();
-        try { sessionStorage.setItem('promoBannerDismissed', '1'); } catch(e){}
-      });
-    }
-
-    setBannerHeight(banner.offsetHeight);
-    if (window.ResizeObserver) {
-      var ro = new ResizeObserver(function(){ setBannerHeight(banner.offsetHeight); });
-      ro.observe(banner);
-    } else {
-      window.addEventListener('resize', function(){ setBannerHeight(banner.offsetHeight); });
-    }
-  }
-})();
-</script>
+<!-- Promotional offers disabled pending approval. -->
 
 
 <!-- UNIQUE BUTTERFLY LOGO as inline SVG -->
@@ -631,58 +575,6 @@ document.getElementById('nav-install-btn').addEventListener('click', function(){
   }
 });
 
-// ===== Commission request (home page) =====
-// This sends the request straight to Elsie's email using Web3Forms.
-// Elsie: paste your free Web3Forms key between the quotes on the next line.
-var BUTTERFLII_ACCESS_KEY = "PASTE-YOUR-WEB3FORMS-KEY-HERE";
-
-function sendQuickRequest(){
-  var name = document.getElementById('q-name').value.trim();
-  var email = document.getElementById('q-email').value.trim();
-  var idea = document.getElementById('q-idea').value.trim();
-  var desc = document.getElementById('q-desc').value.trim();
-  if(!name || !email){ alert('Please pop in your name and email so Elsie can reply! 💜'); return; }
-  if(!idea){ alert('Please tell Elsie what you would like her to create! 🎨'); return; }
-
-  var btn = document.getElementById('q-btn');
-  btn.textContent = 'Sending... ✦';
-  btn.disabled = true;
-
-  fetch('https://api.web3forms.com/submit', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify({
-      access_key: BUTTERFLII_ACCESS_KEY,
-      subject: 'New Butterflii commission request from ' + name,
-      from_name: 'Butterflii Website',
-      name: name,
-      email: email,
-      idea: idea,
-      details: desc || 'No extra details given'
-    })
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(data){
-    if(data.success){
-      document.getElementById('quick-form').style.display = 'none';
-      document.getElementById('quick-thanks').style.display = 'block';
-    } else {
-      alert('Oops, something went wrong sending that. Please try again in a moment! 💜');
-      btn.textContent = 'Send My Request ✦';
-      btn.disabled = false;
-    }
-  })
-  .catch(function(){
-    alert('Oops, something went wrong sending that. Please try again in a moment! 💜');
-    btn.textContent = 'Send My Request ✦';
-    btn.disabled = false;
-  });
-}
-
-// Service Worker
-if('serviceWorker' in navigator){
-  // PWA registration deferred until service worker is restored.
-}
 </script>
 <script src="catalogue.js"></script><script src="gallery-render.js" data-layout="home"></script></body>
 </html>
