@@ -1,0 +1,12 @@
+grant usage on schema butterflii to authenticated;
+grant select on butterflii.members to authenticated;
+create policy member_self on butterflii.members for select to authenticated using (user_id=(select auth.uid()));
+grant select on butterflii.products, butterflii.inventory, butterflii.media, butterflii.notifications to authenticated;
+create policy studio_products_read on butterflii.products for select to authenticated using (exists(select 1 from butterflii.members m where m.user_id=(select auth.uid())));
+create policy studio_inventory_read on butterflii.inventory for select to authenticated using (exists(select 1 from butterflii.members m where m.user_id=(select auth.uid())));
+create policy studio_media_read on butterflii.media for select to authenticated using (exists(select 1 from butterflii.members m where m.user_id=(select auth.uid())));
+create policy studio_notifications_read on butterflii.notifications for select to authenticated using (recipient=(select auth.uid()));
+grant select on butterflii.orders,butterflii.order_items,butterflii.deliveries to authenticated;
+create policy parent_orders_read on butterflii.orders for select to authenticated using (exists(select 1 from butterflii.members m where m.user_id=(select auth.uid()) and m.role='parent'));
+create policy parent_items_read on butterflii.order_items for select to authenticated using (exists(select 1 from butterflii.members m where m.user_id=(select auth.uid()) and m.role='parent'));
+create policy parent_deliveries_read on butterflii.deliveries for select to authenticated using (exists(select 1 from butterflii.members m where m.user_id=(select auth.uid()) and m.role='parent'));
