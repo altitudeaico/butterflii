@@ -232,7 +232,9 @@ function loadPiece() {
   document.getElementById('piece-name').textContent = piece.name;
   document.getElementById('piece-desc').textContent = piece.desc;
   document.getElementById('piece-price').textContent = piece.price;
-  document.getElementById('piece-buy').href = piece.stripe;
+  const buy = document.getElementById('piece-buy');
+  buy.href = 'contact.html?category=General%20enquiry&piece='+encodeURIComponent(slug);
+  buy.textContent = 'Enquire about availability';
 }
 loadPiece();
 document.getElementById('share-piece').addEventListener('click',async()=>{try{if(navigator.share){await navigator.share({title:document.title,url:location.href});}else if(navigator.clipboard){await navigator.clipboard.writeText(location.href);document.getElementById('share-status').textContent='Artwork link copied.';}else{prompt('Copy artwork link',location.href);}}catch(e){if(e.name!=='AbortError')prompt('Copy artwork link',location.href);}});
