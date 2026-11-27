@@ -8,7 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="Butterflii"/>
-<link rel="manifest" href="manifest.json"/>
+
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -487,18 +487,7 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
     <p class="eyebrow">✦ Custom Orders</p>
     <h2>Want something <em>just for you?</em></h2>
     <p>Commission a completely original piece — your pet, your family, your favourite place, anything you can imagine. I'll bring it to life!</p>
-    <div class="form" id="quick-form">
-      <div class="form-row">
-        <input type="text" id="q-name" placeholder="Your name"/>
-        <input type="email" id="q-email" placeholder="Your email"/>
-      </div>
-      <input type="text" id="q-idea" placeholder="What would you like me to create?"/>
-      <textarea id="q-desc" placeholder="Tell me more — colours, style, size, who it's for..."></textarea>
-      <button class="submit-btn" id="q-btn" onclick="sendQuickRequest()">Send My Request ✦</button>
-    </div>
-    <div id="quick-thanks" style="display:none;color:white;font-family:'Cormorant Garamond',serif;font-size:1.4rem;line-height:1.7;padding:10px 0;">
-      🦋 Yay! I got your request and I'll be in touch really soon.<br/>Thank you so much! 💜
-    </div>
+    <p><a class="btn-primary" href="contact.html">Request a commission</a></p>
   </div>
 </section>
 
@@ -533,7 +522,7 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
     <a href="https://www.tiktok.com/@butterflii_artstudio" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 448 512" fill="currentColor" width="16" height="16"><path d="M448 209.9a210.1 210.1 0 0 1-122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0h88a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg></a>
   </div>
   <p class="footer-copy">© 2026 The Butterflii Art Studio · Made with 💜 by Elsie</p>
-</footer>
+<p style="text-align:center;padding:12px"><a href="contact.html" style="color:inherit;text-decoration:underline">Commissions · Partnerships · Press · Studio newsletter · Order support</a></p></footer>
 
 <!-- INSTALL BANNER -->
 <div id="install-banner">
@@ -700,7 +689,7 @@ function sendQuickRequest(){
 
 // Service Worker
 if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js').catch(function(){});
+  // PWA registration deferred until service worker is restored.
 }
 </script>
 </body>
