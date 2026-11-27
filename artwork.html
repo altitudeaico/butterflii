@@ -191,7 +191,7 @@ footer{background:var(--dark);padding:48px;text-align:center;}
         <div class="piece-price" id="piece-price"></div>
         <a href="#" id="piece-buy" class="buy-btn-lg">Buy Now &rarr;</a>
       </div>
-      <p class="piece-note">One of a kind. Once it's sold, it's gone.</p>
+      <button type="button" id="share-piece" style="margin:16px 0;padding:10px 18px;border:1px solid #76249d;border-radius:24px;background:white;color:#76249d;cursor:pointer">Share artwork</button><p id="share-status" role="status"></p><p class="piece-note">One of a kind. Once it's sold, it's gone.</p>
     </div>
   </div>
 
@@ -210,25 +210,16 @@ footer{background:var(--dark);padding:48px;text-align:center;}
   <p class="footer-copy">© 2026 The Butterflii Art Studio · Made with 💜 by Elsie</p>
 </footer>
 
+<script src="catalogue.js"></script>
 <script>
 function toggleMenu(){document.getElementById("mobile-menu").classList.toggle("open");}
 function closeMenu(){document.getElementById("mobile-menu").classList.remove("open");}
 
-const ARTWORKS = {
-  'turtle-in-the-sea': { name: 'Turtle in the sea', medium: 'Acrylic on canvas', price: '£15', image: 'images/art-turtle-in-the-sea.jpg', stripe: 'https://buy.stripe.com/aFacN4fuG3qd8Ee8ZdejK00', desc: 'A gentle sea turtle drifting past a sun-warmed shoreline, painted in soft aquas and sandy gold.' },
-  'lemons': { name: 'Lemons', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-lemons.jpg', stripe: 'https://buy.stripe.com/eVqaEW5U67Gtf2C7V9ejK01', desc: 'Sun-ripe lemons on the branch against candy-stripe lilac, bright and juicy.' },
-  'sunset': { name: 'Sunset', medium: 'Acrylic on canvas', price: '£15', image: 'images/art-sunset.jpg', stripe: 'https://buy.stripe.com/3cI9AS82ee4R4nY6R5ejK02', desc: 'Palm trees silhouetted against a blazing pink and gold horizon, waves rolling in below.' },
-  'giraffe': { name: 'Giraffe', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-giraffe.jpg', stripe: 'https://buy.stripe.com/3cI6oG1DQgcZcUuejxejK03', desc: 'A giraffe watching the moon rise over a glowing sunset sky, birds drifting past.' },
-  'red-sky': { name: 'Red Sky', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-red-sky.jpg', stripe: 'https://buy.stripe.com/9B6bJ05U60e18EedftejK04', desc: 'A fiery abstract sun over gentle painted waves, warm reds fading to soft pink.' },
-  'starfish': { name: 'Starfish', medium: 'Acrylic on canvas', price: '£15', image: 'images/art-starfish.jpg', stripe: 'https://buy.stripe.com/cNidR83LYbWJ9Iia3hejK05', desc: 'Starfish caught between two leaning palms as the surf rolls onto a golden shore.' },
-  'bubbles': { name: 'Bubbles', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-bubbles.jpg', stripe: 'https://buy.stripe.com/4gM9AS1DQ9OB5s23ETejK06', desc: 'A shower of soft violet bubbles drifting down a clean white canvas.' },
-  'abstract': { name: 'Abstract', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-abstract.jpg', stripe: 'https://buy.stripe.com/7sY6oG1DQaSFg6G5N1ejK07', desc: 'Ribbons of pink, gold, and lilac sweeping into a small hand-painted rainbow.' },
-  'purple-abstract': { name: 'Purple abstract', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-purple-abstract.jpg', stripe: 'https://buy.stripe.com/3cIbJ0ciu7Gt3jUgrFejK08', desc: 'Bold waves of purple rising beneath a glowing pink and gold sun.' }
-};
+const ARTWORKS = window.ARTWORKS;
 
 function loadPiece() {
   const slug = new URLSearchParams(window.location.search).get('piece');
-  const piece = ARTWORKS[slug];
+  const piece = Object.hasOwn(ARTWORKS, slug) ? ARTWORKS[slug] : null;
   if (!piece) {
     document.getElementById('piece-wrap').style.display = 'none';
     document.getElementById('piece-notfound').style.display = 'block';
@@ -244,6 +235,7 @@ function loadPiece() {
   document.getElementById('piece-buy').href = piece.stripe;
 }
 loadPiece();
+document.getElementById('share-piece').addEventListener('click',async()=>{try{if(navigator.share){await navigator.share({title:document.title,url:location.href});}else if(navigator.clipboard){await navigator.clipboard.writeText(location.href);document.getElementById('share-status').textContent='Artwork link copied.';}else{prompt('Copy artwork link',location.href);}}catch(e){if(e.name!=='AbortError')prompt('Copy artwork link',location.href);}});
 </script>
 </body>
 </html>
