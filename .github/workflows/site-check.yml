@@ -11,11 +11,12 @@ jobs:
         with:
           node-version: '22'
       - run: node scripts/check-site.cjs
+      - run: node scripts/build-preview.cjs
       - run: npm install --no-save playwright@1.51.1
       - run: npx playwright install --with-deps chromium
       - run: |
           mkdir -p test-output
-          python3 -m http.server 8080 &
+          python3 -m http.server 8080 --directory dist &
           for i in {1..20}; do curl -fsS http://127.0.0.1:8080/ >/dev/null && break; sleep 1; done
           node scripts/browser-check.cjs
       - uses: actions/upload-artifact@v4
@@ -23,3 +24,8 @@ jobs:
         with:
           name: browser-screenshots
           path: test-output/
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: deployable-preview
+          path: dist/
