@@ -32,7 +32,7 @@ BEGIN
  IF has_function_privilege('anon','butterflii.reserve_checkout(uuid,jsonb,integer)','EXECUTE') OR has_function_privilege('authenticated','butterflii.reserve_checkout(uuid,jsonb,integer)','EXECUTE') THEN RAISE EXCEPTION 'Public execution allowed'; END IF;
 END $$;
 UPDATE butterflii.orders SET stripe_session_id='cs_test_fixture' WHERE id='00000000-0000-0000-0000-000000000021';
-DO $
+DO $$
 DECLARE oid uuid := '00000000-0000-0000-0000-000000000021';
 BEGIN
  BEGIN
@@ -44,5 +44,5 @@ BEGIN
  IF butterflii.confirm_reserved_sale(oid,'cs_test_fixture',2000) THEN RAISE EXCEPTION 'Duplicate sale'; END IF;
  IF NOT EXISTS (SELECT 1 FROM butterflii.orders WHERE id=oid AND status='paid') OR NOT EXISTS (SELECT 1 FROM butterflii.inventory WHERE id='00000000-0000-0000-0000-000000000011' AND stock=0 AND reserved=0) THEN RAISE EXCEPTION 'Sale state incorrect'; END IF;
  IF has_function_privilege('anon','butterflii.confirm_reserved_sale(uuid,text,integer)','EXECUTE') OR has_function_privilege('authenticated','butterflii.confirm_reserved_sale(uuid,text,integer)','EXECUTE') THEN RAISE EXCEPTION 'Public execution allowed'; END IF;
-END $;
+END $$;
 ROLLBACK;
