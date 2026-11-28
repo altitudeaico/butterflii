@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useAuth } from '../auth/useAuth'
-import { listArtwork, submitArtwork, reviewArtwork } from '../lib/queries/artwork'
+import { listArtwork, submitArtwork, reviewArtwork, resubmitArtwork } from '../lib/queries/artwork'
 
 const field = 'w-full rounded-2xl border border-brand-pink/50 px-4 py-3'
 const action = 'rounded-2xl bg-brand-purple px-4 py-3 font-semibold text-white disabled:opacity-50'
@@ -10,6 +10,7 @@ export function ArtworkWorkspace() {
   const { profile } = useAuth()
   const artist = profile?.role === 'artist'
   const parent = profile?.role === 'super_admin' || profile?.role === 'ops_admin'
+  const [editing, setEditing] = useState<string | null>(null)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
@@ -23,9 +24,9 @@ export function ArtworkWorkspace() {
     gcTime: 0,
   })
   const submit = useMutation({
-    mutationFn: submitArtwork,
+    mutationFn: (draft: Parameters<typeof submitArtwork>[0]) => editing ? resubmitArtwork(editing,draft) : submitArtwork(draft),
     onSuccess: async () => {
-      setTitle(''); setDescription(''); setPrice('')
+      setEditing(null); setTitle(''); setDescription(''); setPrice('')
       await query.refetch()
     },
   })
@@ -45,10 +46,12 @@ export function ArtworkWorkspace() {
           if (!validPrice || !title.trim() || submit.isPending) return
           submit.mutate({ title, description, proposed_price_pence: Math.round(Number(price) * 100) })
         }}>
+          {editing && <p>Editing returned artwork</p>}
           <label className="block">Artwork name<input className={field} required maxLength={200} value={title} onChange={e => setTitle(e.target.value)} /></label>
           <label className="block">Tell us about your artwork<textarea className={field} maxLength={4000} value={description} onChange={e => setDescription(e.target.value)} /></label>
           <label className="block">Your suggested price (£)<input className={field} inputMode="decimal" required value={price} onChange={e => setPrice(e.target.value)} /></label>
-          <button className={action} disabled={!validPrice || !title.trim() || submit.isPending}>Send for approval</button>
+          <button className={action} disabled={!validPrice || !title.trim() || submit.isPending}>{editing ? 'Send revised artwork' : 'Send for approval'}</button>
+          {editing && <button type="button" disabled={submit.isPending} onClick={()=>{setEditing(null);setTitle('');setDescription('');setPrice('')}}>Cancel editing</button>}
         </form>}
         {query.isPending && <p>Loading artwork…</p>}
         {(query.isError || submit.isError || review.isError) && <p role="alert">We couldn't complete that action. Please try again.</p>}
@@ -59,6 +62,7 @@ export function ArtworkWorkspace() {
           <p>{(item.proposed_price_pence / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })}</p>
           <p>{item.status === 'pending' ? 'Waiting for approval' : item.status === 'approved' ? 'Approved (not yet published)' : 'Changes requested'}</p>
           {item.review_note && <p>{item.review_note}</p>}
+          {artist && item.status === 'changes_requested' && <button className={action} disabled={submit.isPending} onClick={()=>{setEditing(item.id);setTitle(item.title);setDescription(item.description);setPrice((item.proposed_price_pence/100).toFixed(2))}}>Edit and resubmit</button>}
           {parent && item.status === 'pending' && <>
             <label className="block">Feedback<textarea className={field} maxLength={2000} value={notes[item.id] ?? ''} onChange={e => setNotes(prev => ({ ...prev, [item.id]: e.target.value }))} /></label>
             <div className="flex flex-wrap gap-2">
