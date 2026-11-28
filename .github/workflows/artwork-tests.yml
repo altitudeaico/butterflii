@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: '24'
       - name: Artwork handler tests
-        run: node --experimental-strip-types --test server/artwork-handler.test.ts
+        run: node --experimental-strip-types --test server/artwork-handler.test.ts server/artwork-integration.test.ts
       - name: Install HQ dependencies
         working-directory: hq
         run: npm ci
