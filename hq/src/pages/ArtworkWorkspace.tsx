@@ -55,15 +55,19 @@ export function ArtworkWorkspace() {
           {editing && <button type="button" disabled={submit.isPending} onClick={()=>{setEditing(null);setTitle('');setDescription('');setPrice('')}}>Cancel editing</button>}
         </form>}
         {query.isPending && <p>Loading artwork…</p>}
-        {(query.isError || submit.isError || review.isError) && <p role="alert">We couldn't complete that action. For approval, make sure a photograph is attached, then try again.</p>}
-        {query.isSuccess && query.data.length === 0 && <p>No artwork submissions yet.</p>}
+        {query.isError && <p role="alert">Could not load artwork. <button type="button" className="underline" onClick={()=>void query.refetch()}>Try again</button></p>}
+        {submit.isError && <p role="alert">Could not save your artwork. Your details are still here. Please try again.</p>}
+        {review.isError && <p role="alert">Could not save the review. For approval, check that a photograph is attached, then try again.</p>}
+        {submit.isSuccess && <p role="status">Artwork sent for approval.</p>}
+        {review.isSuccess && <p role="status">Review saved.</p>}
+        {query.isSuccess && query.data.length === 0 && <p>{artist ? 'Your creative collection starts here. Add your first artwork above.' : 'No artwork awaiting review yet. New submissions will appear here.'}</p>}
         {query.data?.map(item => <article key={item.id} className="space-y-2 rounded-2xl border border-brand-pink/30 p-4">
           <h3 className="font-semibold">{item.title}</h3>
           <ArtworkPhoto artistId={item.artist_id} id={item.id} canUpload={artist && item.status === 'pending'} />
           <p>{item.description}</p>
           <p>{(item.proposed_price_pence / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })}</p>
           <p>{item.status === 'pending' ? 'Waiting for approval' : item.status === 'approved' ? 'Approved (not yet published)' : 'Changes requested'}</p>
-          {item.review_note && <p>{item.review_note}</p>}
+          {item.review_note && <div className="rounded-xl bg-brand-pink/10 p-3"><p className="font-semibold">Parent feedback</p><p className="whitespace-pre-wrap break-words">{item.review_note}</p></div>}
           {artist && item.status === 'changes_requested' && <button className={action} disabled={submit.isPending} onClick={()=>{setEditing(item.id);setTitle(item.title);setDescription(item.description);setPrice((item.proposed_price_pence/100).toFixed(2))}}>Edit and resubmit</button>}
           {parent && item.status === 'pending' && <>
             <p className="text-sm">Check the attached photograph before approving. Artwork without a photo cannot be approved.</p>
