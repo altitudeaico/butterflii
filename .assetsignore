@@ -12,3 +12,15 @@ dist/
 dist-public/
 test-output/
 node_modules/
+
+server/
+database/
+hq/
+dist-public/
+.env
+.env.*
+**/.env
+**/.env.*
+**/node_modules/
+**/.dev.vars
+**/.dev.vars.*
