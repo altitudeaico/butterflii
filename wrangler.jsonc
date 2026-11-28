@@ -2,8 +2,17 @@
   "name": "butterflii",
   "compatibility_date": "2026-11-27",
   "workers_dev": true,
+  "main": "server/storefront-worker.ts",
+  "build": {
+    "command": "node scripts/build-public.cjs"
+  },
   "assets": {
-    "directory": ".",
+    "directory": "./dist-public",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api",
+      "/api/*"
+    ],
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "none"
   }

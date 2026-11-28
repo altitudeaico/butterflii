@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - run: node --experimental-strip-types --test server/artwork-handler.test.ts server/artwork-integration.test.ts hq/src/lib/inventory-status.test.ts server/inventory-handler.test.ts server/inventory-auth.test.ts server/inventory-endpoint.test.ts hq/src/lib/family-inventory.test.ts
+      - run: node --experimental-strip-types --test server/artwork-handler.test.ts server/artwork-integration.test.ts hq/src/lib/inventory-status.test.ts server/inventory-handler.test.ts server/inventory-auth.test.ts server/inventory-endpoint.test.ts hq/src/lib/family-inventory.test.ts server/checkout-quote.test.ts server/stripe-checkout.test.ts server/storefront-worker.test.ts
       - run: npm ci
         working-directory: hq
       - name: Audit production dependencies
@@ -57,3 +57,6 @@ jobs:
           for file in artwork-test-bootstrap artwork-submissions-draft artwork-review-hardening-draft artwork-service-draft artwork-service-review-draft artwork-staging-verify artwork-behaviour-test artwork-restricted-role-draft hq-artwork-test; do
             psql -h localhost -U postgres -d artwork_test -v ON_ERROR_STOP=1 -f "database/$file.sql"
           done
+
+          createdb -h localhost -U postgres stock_reservation_test
+          psql -h localhost -U postgres -d stock_reservation_test -v ON_ERROR_STOP=1 -f database/stock-reservation-test.sql
