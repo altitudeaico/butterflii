@@ -135,7 +135,7 @@ footer{background:var(--dark);padding:48px;text-align:center;}
         <div class="piece-price" id="piece-price"></div>
         <a href="contact.html" id="piece-buy" class="buy-btn-lg">Enquire about availability</a>
       </div>
-      <button type="button" id="share-piece" style="margin:16px 0;padding:10px 18px;border:1px solid #76249d;border-radius:24px;background:white;color:#76249d;cursor:pointer">Share artwork</button><p id="share-status" role="status"></p><p class="piece-note">One of a kind. Once it's sold, it's gone.</p>
+      <div style="margin:20px 0"><label for="delivery-region">Delivery destination</label><select id="delivery-region" style="display:block;width:100%;padding:12px;border:1px solid #9d83a8;border-radius:8px;font:inherit"><option value="">Choose destination</option><option>UK mainland</option><option>Northern Ireland or remote UK</option><option>Europe</option><option>USA or Canada</option><option>Rest of world</option></select><p id="delivery-note" role="status">Delivery is quoted separately before payment.</p></div><button type="button" id="share-piece" style="margin:16px 0;padding:10px 18px;border:1px solid #76249d;border-radius:24px;background:white;color:#76249d;cursor:pointer">Share artwork</button><p id="share-status" role="status"></p><p class="piece-note">One of a kind. Once it's sold, it's gone.</p>
     </div>
   </div>
 
@@ -179,6 +179,8 @@ function loadPiece() {
   const buy = document.getElementById('piece-buy');
   buy.href = 'contact.html?category=General%20enquiry&piece='+encodeURIComponent(slug);
   buy.textContent = 'Enquire about availability';
+  const region=document.getElementById('delivery-region');
+  region.addEventListener('change',()=>{buy.href='contact.html?category=Delivery%20quote&piece='+encodeURIComponent(slug)+'&region='+encodeURIComponent(region.value);buy.textContent='Request availability and delivery quote';document.getElementById('delivery-note').textContent='We will confirm delivery costs and availability before you pay. International orders may incur local import charges.';});
 }
 loadPiece();
 document.getElementById('share-piece').addEventListener('click',async()=>{try{if(navigator.share){await navigator.share({title:document.title,url:location.href});}else if(navigator.clipboard){await navigator.clipboard.writeText(location.href);document.getElementById('share-status').textContent='Artwork link copied.';}else{prompt('Copy artwork link',location.href);}}catch(e){if(e.name!=='AbortError')prompt('Copy artwork link',location.href);}});
