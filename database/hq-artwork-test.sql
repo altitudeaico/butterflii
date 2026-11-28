@@ -57,3 +57,36 @@ do $$ begin if exists(select 1 from hq.artwork_review_history) then raise except
 select set_config('request.jwt.claim.sub','00000000-0000-0000-0000-000000000002',true);
 do $$ begin if (select count(*) from hq.review_artwork(current_setting('test.artwork_id')::uuid,'approved','Good revision'))<>1 then raise exception 'Repeat review failed'; end if; end $$;
 rollback;
+
+-- Minimal storage fixture; tests SQL policies, not the Storage HTTP service.
+create schema storage;
+grant usage on schema storage to authenticated;
+create table storage.buckets(id text primary key,name text,public boolean,file_size_limit bigint,allowed_mime_types text[]);
+create table storage.objects(bucket_id text,name text,primary key(bucket_id,name));
+alter table storage.objects enable row level security;
+grant select,insert,update,delete on storage.objects to authenticated;
+\ir hq-artwork-photo-draft.sql
+begin;
+set local role authenticated;
+select set_config('request.jwt.claim.sub','00000000-0000-0000-0000-000000000001',true);
+insert into hq.artwork_submissions(title,proposed_price_pence) values ('Photo test',1000);
+select set_config('test.photo_id',(select id::text from hq.artwork_submissions limit 1),true);
+select set_config('test.photo_path',auth.uid()::text||'/'||current_setting('test.photo_id')||'/photo',true);
+select set_config('request.jwt.claim.sub','00000000-0000-0000-0000-000000000002',true);
+do $$ begin
+ begin perform hq.review_artwork(current_setting('test.photo_id')::uuid,'approved',''); raise exception 'Missing photo accepted'; exception when check_violation then null; end;
+end $$;
+select set_config('request.jwt.claim.sub','00000000-0000-0000-0000-000000000003',true);
+do $$ begin
+ begin insert into storage.objects values ('butterflii-artwork-private',current_setting('test.photo_path')); raise exception 'Foreign upload allowed'; exception when insufficient_privilege then null; end;
+end $$;
+select set_config('request.jwt.claim.sub','00000000-0000-0000-0000-000000000001',true);
+insert into storage.objects values ('butterflii-artwork-private',current_setting('test.photo_path'));
+select set_config('request.jwt.claim.sub','00000000-0000-0000-0000-000000000003',true);
+do $$ begin if exists(select 1 from storage.objects) then raise exception 'Foreign photo visible'; end if; end $$;
+select set_config('request.jwt.claim.sub','00000000-0000-0000-0000-000000000002',true);
+do $$ begin
+ if not exists(select 1 from storage.objects) then raise exception 'Parent cannot view photo'; end if;
+ if (select count(*) from hq.review_artwork(current_setting('test.photo_id')::uuid,'approved',''))<>1 then raise exception 'Photo approval failed'; end if;
+end $$;
+rollback;
