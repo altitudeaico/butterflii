@@ -1,7 +1,7 @@
 import {quoteBasket} from './checkout-quote.ts'
 type Quote=ReturnType<typeof quoteBasket>
 export async function createTestCheckout(config:{secret:string;origin:string},orderId:string,quote:Quote){
- if(!config.secret.startsWith('sk_test_')) throw new Error('Test Stripe key required')
+ if(!/^(?:sk|rk)_test_[A-Za-z0-9]+$/.test(config.secret)) throw new Error('Test Stripe key required')
  if(!/^[0-9a-f-]{36}$/i.test(orderId)) throw new Error('Invalid order ID')
  const origin=new URL(config.origin)
  if(origin.protocol!=='https:'||origin.username||origin.password||origin.search||origin.hash) throw new Error('Invalid return URL')
