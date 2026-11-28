@@ -31,3 +31,10 @@ export async function reviewArtwork(id:string,status:'approved'|'changes_request
   if(!Array.isArray(data)||data.length!==1) throw new Error('Artwork has already been reviewed or is unavailable.')
   return data[0] as ArtworkSubmission
 }
+
+export async function resubmitArtwork(id:string,draft:ArtworkDraft): Promise<ArtworkSubmission> {
+  const {data,error}=await supabase.schema('hq').rpc('resubmit_artwork',{p_id:id,p_title:draft.title.trim(),p_description:draft.description,p_price:draft.proposed_price_pence})
+  if(error) throw error
+  if(!Array.isArray(data)||data.length!==1) throw new Error('Artwork is no longer awaiting changes.')
+  return data[0] as ArtworkSubmission
+}
