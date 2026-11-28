@@ -180,6 +180,8 @@ function loadPiece() {
   buy.href = 'contact.html?category=General%20enquiry&piece='+encodeURIComponent(slug);
   buy.textContent = 'Enquire about availability';
   const region=document.getElementById('delivery-region');
+  if(['sold','reserved','display'].includes(piece.status)){buy.hidden=true;region.parentElement.hidden=true;document.querySelector('.piece-note').textContent=({sold:'Sold',reserved:'Currently reserved',display:'Gallery only'})[piece.status];return;}
+  document.querySelector('.piece-note').textContent=piece.status==='available'?'One original available, subject to confirmation.':'Availability is subject to studio confirmation.';
   region.addEventListener('change',()=>{buy.href='contact.html?category=Delivery%20quote&piece='+encodeURIComponent(slug)+'&region='+encodeURIComponent(region.value);buy.textContent='Request availability and delivery quote';document.getElementById('delivery-note').textContent='We will confirm delivery costs and availability before you pay. International orders may incur local import charges.';});
 }
 loadPiece();
