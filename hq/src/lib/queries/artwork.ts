@@ -13,43 +13,21 @@ export type ArtworkSubmission = {
 
 export type ArtworkDraft = Pick<ArtworkSubmission, 'title' | 'description' | 'proposed_price_pence'>
 
-async function request<T>(path: string, method = 'GET', body?: unknown): Promise<T> {
-  const { data, error } = await supabase.auth.getSession()
-  if (error || !data.session) throw new Error('Please sign in again.')
-  const base = import.meta.env.VITE_ARTWORK_API_URL as string | undefined
-  if (!base) throw new Error('Artwork management is not connected yet.')
-  const url = new URL(base.replace(/\/$/, '') + path)
-  if (url.protocol !== 'https:') throw new Error('Artwork service requires HTTPS.')
-  const response = await fetch(url, {
-    method,
-    headers: {
-      Authorization: 'Bearer ' + data.session.access_token,
-      'Content-Type': 'application/json',
-    },
-    body: body === undefined ? undefined : JSON.stringify(body),
-    cache: 'no-store',
-    redirect: 'error',
-  })
-  if (!response.ok) throw new Error(response.status === 401 || response.status === 403
-    ? 'You do not have access to this artwork action.'
-    : 'Artwork service is unavailable. Please try again.')
-  return await response.json() as T
+export async function listArtwork(): Promise<ArtworkSubmission[]> {
+  const {data,error}=await supabase.schema('hq').from('artwork_submissions').select('*').order('created_at',{ascending:false})
+  if(error) throw error
+  return data as ArtworkSubmission[]
 }
-
-export function listArtwork() {
-  return request<ArtworkSubmission[]>('/submissions')
+export async function submitArtwork(draft: ArtworkDraft): Promise<ArtworkSubmission> {
+  const title=draft.title.trim()
+  if(!title || title.length>200 || draft.description.length>4000 || !Number.isInteger(draft.proposed_price_pence) || draft.proposed_price_pence<=0 || draft.proposed_price_pence>2147483647) throw new Error('Enter valid artwork details.')
+  const {data,error}=await supabase.schema('hq').from('artwork_submissions').insert({title,description:draft.description,proposed_price_pence:draft.proposed_price_pence}).select().single()
+  if(error) throw error
+  return data as ArtworkSubmission
 }
-
-export function submitArtwork(draft: ArtworkDraft) {
-  const title = draft.title.trim()
-  if (!title || title.length > 200 || !Number.isSafeInteger(draft.proposed_price_pence) || draft.proposed_price_pence <= 0) {
-    throw new Error('Enter a title and a valid positive price.')
-  }
-  return request<ArtworkSubmission>('/submissions', 'POST', {
-    title, description: draft.description, proposed_price_pence: draft.proposed_price_pence,
-  })
-}
-
-export function reviewArtwork(id: string, status: 'approved' | 'changes_requested', review_note: string) {
-  return request<ArtworkSubmission>('/submissions/' + encodeURIComponent(id) + '/review', 'POST', { status, review_note })
+export async function reviewArtwork(id:string,status:'approved'|'changes_requested',review_note:string): Promise<ArtworkSubmission> {
+  const {data,error}=await supabase.schema('hq').rpc('review_artwork',{p_id:id,p_status:status,p_note:review_note})
+  if(error) throw error
+  if(!Array.isArray(data)||data.length!==1) throw new Error('Artwork has already been reviewed or is unavailable.')
+  return data[0] as ArtworkSubmission
 }
