@@ -132,9 +132,9 @@ footer{background:var(--dark);padding:48px;text-align:center;}
 <section class="piece-section">
   <a href="gallery.html" class="back-link">&larr; Back to the Gallery</a>
 
-  <div class="piece-wrap" id="piece-wrap">
+  <div class="piece-wrap" id="piece-wrap" style="display:none">
     <div class="piece-img-wrap">
-      <img id="piece-img" src="" alt="">
+      <img id="piece-img" alt="">
     </div>
     <div>
       <div class="piece-medium" id="piece-medium"></div>
@@ -178,6 +178,7 @@ function loadPiece() {
     document.getElementById('piece-notfound').style.display = 'block';
     return;
   }
+  document.getElementById('piece-wrap').style.display = '';
   document.title = piece.name + ' — The Butterflii Art Studio';
   document.getElementById('piece-img').src = piece.image;
   document.getElementById('piece-img').alt = piece.name + ' painting';
@@ -189,7 +190,7 @@ function loadPiece() {
   buy.href = 'contact.html?category=General%20enquiry&piece='+encodeURIComponent(slug);
   buy.textContent = 'Enquire about availability';
   const region=document.getElementById('delivery-region');
-  if(['sold','reserved','display'].includes(piece.status)){buy.hidden=true;region.parentElement.hidden=true;document.querySelector('.piece-note').textContent=({sold:'Sold',reserved:'Currently reserved',display:'Gallery only'})[piece.status];return;}
+  if(['sold','reserved','display'].includes(piece.status)){buy.hidden=true;buy.style.display='none';region.parentElement.hidden=true;region.parentElement.style.display='none';document.querySelector('.piece-note').textContent=({sold:'Sold',reserved:'Currently reserved',display:'Gallery only'})[piece.status];return;}
   document.querySelector('.piece-note').textContent=piece.status==='available'?'One original available, subject to confirmation.':'Availability is subject to studio confirmation.';
   region.addEventListener('change',()=>{buy.href='contact.html?category=Delivery%20quote&piece='+encodeURIComponent(slug)+'&region='+encodeURIComponent(region.value);buy.textContent='Request availability and delivery quote';document.getElementById('delivery-note').textContent='We will confirm delivery costs and availability before you pay. International orders may incur local import charges.';});
 }
