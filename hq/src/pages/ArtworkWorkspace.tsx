@@ -1,3 +1,4 @@
+import { ArtworkPhoto } from './ArtworkPhoto'
 import { useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useAuth } from '../auth/useAuth'
@@ -54,16 +55,18 @@ export function ArtworkWorkspace() {
           {editing && <button type="button" disabled={submit.isPending} onClick={()=>{setEditing(null);setTitle('');setDescription('');setPrice('')}}>Cancel editing</button>}
         </form>}
         {query.isPending && <p>Loading artwork…</p>}
-        {(query.isError || submit.isError || review.isError) && <p role="alert">We couldn't complete that action. Please try again.</p>}
+        {(query.isError || submit.isError || review.isError) && <p role="alert">We couldn't complete that action. For approval, make sure a photograph is attached, then try again.</p>}
         {query.isSuccess && query.data.length === 0 && <p>No artwork submissions yet.</p>}
         {query.data?.map(item => <article key={item.id} className="space-y-2 rounded-2xl border border-brand-pink/30 p-4">
           <h3 className="font-semibold">{item.title}</h3>
+          <ArtworkPhoto artistId={item.artist_id} id={item.id} canUpload={artist && item.status === 'pending'} />
           <p>{item.description}</p>
           <p>{(item.proposed_price_pence / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })}</p>
           <p>{item.status === 'pending' ? 'Waiting for approval' : item.status === 'approved' ? 'Approved (not yet published)' : 'Changes requested'}</p>
           {item.review_note && <p>{item.review_note}</p>}
           {artist && item.status === 'changes_requested' && <button className={action} disabled={submit.isPending} onClick={()=>{setEditing(item.id);setTitle(item.title);setDescription(item.description);setPrice((item.proposed_price_pence/100).toFixed(2))}}>Edit and resubmit</button>}
           {parent && item.status === 'pending' && <>
+            <p className="text-sm">Check the attached photograph before approving. Artwork without a photo cannot be approved.</p>
             <label className="block">Feedback<textarea className={field} maxLength={2000} value={notes[item.id] ?? ''} onChange={e => setNotes(prev => ({ ...prev, [item.id]: e.target.value }))} /></label>
             <div className="flex flex-wrap gap-2">
               <button className={action} disabled={review.isPending} onClick={() => review.mutate({ id: item.id, status: 'approved', note: notes[item.id] ?? '' })}>Approve</button>
