@@ -1,0 +1,11 @@
+window.ARTWORKS = {
+  'turtle-in-the-sea': { name: 'Turtle in the sea', medium: 'Acrylic on canvas', price: '£15', image: 'images/art-turtle-in-the-sea.jpg', status: 'pending-review', desc: 'A gentle sea turtle drifting past a sun-warmed shoreline, painted in soft aquas and sandy gold.' },
+  'lemons': { name: 'Lemons', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-lemons.jpg', status: 'pending-review', desc: 'Sun-ripe lemons on the branch against candy-stripe lilac, bright and juicy.' },
+  'sunset': { name: 'Sunset', medium: 'Acrylic on canvas', price: '£15', image: 'images/art-sunset.jpg', status: 'pending-review', desc: 'Palm trees silhouetted against a blazing pink and gold horizon, waves rolling in below.' },
+  'giraffe': { name: 'Giraffe', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-giraffe.jpg', status: 'pending-review', desc: 'A giraffe watching the moon rise over a glowing sunset sky, birds drifting past.' },
+  'red-sky': { name: 'Red Sky', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-red-sky.jpg', status: 'pending-review', desc: 'A fiery abstract sun over gentle painted waves, warm reds fading to soft pink.' },
+  'starfish': { name: 'Starfish', medium: 'Acrylic on canvas', price: '£15', image: 'images/art-starfish.jpg', status: 'pending-review', desc: 'Starfish caught between two leaning palms as the surf rolls onto a golden shore.' },
+  'bubbles': { name: 'Bubbles', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-bubbles.jpg', status: 'pending-review', desc: 'A shower of soft violet bubbles drifting down a clean white canvas.' },
+  'abstract': { name: 'Abstract', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-abstract.jpg', status: 'pending-review', desc: 'Ribbons of pink, gold, and lilac sweeping into a small hand-painted rainbow.' },
+  'purple-abstract': { name: 'Purple abstract', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-purple-abstract.jpg', status: 'pending-review', desc: 'Bold waves of purple rising beneath a glowing pink and gold sun.' }
+};

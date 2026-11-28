@@ -4,11 +4,20 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>The Butterflii Art Studio</title>
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Butterflii Art Studio">
+<meta property="og:title" content="The Butterflii Art Studio">
+<meta property="og:description" content="Discover original artwork, colourful paintings and creative projects from Butterflii Art Studio.">
+<meta property="og:image" content="https://butterfliiartstudio.com/images/art-lemons.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Discover original artwork, colourful paintings and creative projects from Butterflii Art Studio.">
+
 <meta name="theme-color" content="#c45ef5"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="Butterflii"/>
-<link rel="manifest" href="manifest.json"/>
+
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -231,67 +240,11 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
   .footer-nav{gap:18px 24px;}
 }
 </style>
-</head>
+<style>nav a:focus-visible,button:focus-visible{outline:3px solid #b35ae0;outline-offset:3px}header nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}header nav a{margin:0 6px;padding:5px 0}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}</style></head>
 <body>
 
 <!-- PROMO BANNER -->
-<script src="promo-config.js"></script>
-<div class="promo-banner" id="promo-banner" role="region" aria-label="Promotional offer">
-  <span class="promo-banner-bf" aria-hidden="true">&#129419;</span>
-  <div class="promo-banner-inner">
-    <span class="promo-banner-text">&#10022; <strong id="promo-banner-percent">20% OFF</strong> <span id="promo-banner-rest">your entire order</span></span>
-    <span class="promo-banner-code" id="promo-banner-code">CODE: ELSIE20</span>
-    <a href="shop.html" class="promo-banner-btn" id="promo-banner-btn">Shop Now</a>
-  </div>
-  <button class="promo-banner-close" id="promo-banner-close" aria-label="Dismiss promotional offer">&#10005;</button>
-</div>
-<script>
-(function(){
-  var cfg = window.PROMO_CONFIG || {};
-  var banner = document.getElementById('promo-banner');
-  if (!banner) return;
-
-  function setBannerHeight(h){
-    document.documentElement.style.setProperty('--promo-banner-h', h + 'px');
-  }
-  function hideBanner(){
-    banner.style.display = 'none';
-    setBannerHeight(0);
-  }
-
-  var dismissed = false;
-  try { dismissed = sessionStorage.getItem('promoBannerDismissed') === '1'; } catch(e){}
-
-  if (cfg.enabled === false || dismissed) {
-    hideBanner();
-  } else {
-    var percentEl = document.getElementById('promo-banner-percent');
-    var restEl = document.getElementById('promo-banner-rest');
-    var codeEl = document.getElementById('promo-banner-code');
-    var btnEl = document.getElementById('promo-banner-btn');
-    if (percentEl && cfg.discountPercent) percentEl.textContent = cfg.discountPercent + ' OFF';
-    if (restEl && cfg.discountRest) restEl.textContent = cfg.discountRest;
-    if (codeEl && cfg.code) codeEl.textContent = 'CODE: ' + cfg.code;
-    if (btnEl && cfg.shopUrl) btnEl.setAttribute('href', cfg.shopUrl);
-
-    var closeBtn = document.getElementById('promo-banner-close');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', function(){
-        hideBanner();
-        try { sessionStorage.setItem('promoBannerDismissed', '1'); } catch(e){}
-      });
-    }
-
-    setBannerHeight(banner.offsetHeight);
-    if (window.ResizeObserver) {
-      var ro = new ResizeObserver(function(){ setBannerHeight(banner.offsetHeight); });
-      ro.observe(banner);
-    } else {
-      window.addEventListener('resize', function(){ setBannerHeight(banner.offsetHeight); });
-    }
-  }
-})();
-</script>
+<!-- Promotional offers disabled pending approval. -->
 
 
 <!-- UNIQUE BUTTERFLY LOGO as inline SVG -->
@@ -376,8 +329,8 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
     <li><a href="index.html" class="active" style="color:var(--purple);">Home</a></li>
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="shop.html">Shop</a></li>
-  </ul>
-  <a href="gallery.html" style="display:flex;align-items:center;gap:8px;background:var(--purple, #c45ef5);color:white;text-decoration:none;border-radius:50px;padding:9px 20px;font-family:'Quicksand',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.background='#9b2fd4'" onmouseout="this.style.background='#c45ef5'">🛍️ Shop</a>
+  <li><a href="commissions.html">Commissions</a></li><li><a href="contact.html">Contact</a></li></ul>
+  <a href="shop.html" style="display:flex;align-items:center;gap:8px;background:var(--purple, #c45ef5);color:white;text-decoration:none;border-radius:50px;padding:9px 20px;font-family:'Quicksand',sans-serif;font-size:0.78rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;transition:all 0.2s;" onmouseover="this.style.background='#9b2fd4'" onmouseout="this.style.background='#c45ef5'">🛍️ Shop</a>
   <button class="nav-install" id="nav-install-btn">+ Add to phone</button>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
@@ -386,7 +339,7 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
   <a href="index.html" onclick="closeMenu()">Home</a>
   <a href="gallery.html" onclick="closeMenu()">Gallery</a>
   <a href="shop.html" onclick="closeMenu()">Shop</a>
-</div>
+<a href="commissions.html">Commissions</a><a href="contact.html">Contact</a></div>
 
 <!-- HERO -->
 <section class="hero">
@@ -431,15 +384,15 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
         <button class="dot active" onclick="goToSlide(0)" aria-label="Photo 1"></button>
         <button class="dot" onclick="goToSlide(1)" aria-label="Photo 2"></button>
       </div>
-      <div class="about-sticker">Age 9 · Future Billionaire ✨</div>
+      <div class="about-sticker">Young artist · Big dreams ✨</div>
       <div class="about-sticker-2">💜 100% Handmade</div>
     </div>
   </div>
   <div class="about-text">
     <p class="eyebrow">✦ The Artist</p>
     <h2>Hi, I'm <em>Elsie</em> —<br>art is my superpower</h2>
-    <p>I'm a 9-year-old artist who loves creating beautiful things. From detailed pencil drawings to vibrant paintings and digital art — every piece comes straight from my heart.</p>
-    <p>My two greatest passions are <strong style="color:var(--purple)">art</strong> and <strong style="color:var(--purple)">cheerleading</strong> — and I'm the best at both! 🎨🎀 Whether I'm creating a masterpiece or nailing a stunt, I give it everything I've got.</p>
+    <p>I'm a young artist who loves creating beautiful things. From detailed pencil drawings to vibrant paintings and digital art — every piece comes straight from my heart.</p>
+    <p>My two greatest passions are <strong style="color:var(--purple)">art</strong> and <strong style="color:var(--purple)">cheerleading</strong> — and I love learning and growing in both! 🎨🎀 Whether I'm creating a masterpiece or nailing a stunt, I give it everything I've got.</p>
     <p>One day I'm going to be a billionaire and meet all the celebrities — but right now I'm focused on creating amazing art and sharing it with the world! 🌟</p>
     <div class="stats-row">
       <div class="stat"><span class="num">35+</span><span class="lbl">Artworks</span></div>
@@ -455,17 +408,9 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
     <p class="eyebrow">✦ My Work</p>
     <h2>Art that makes you <em>feel</em> something</h2>
   </div>
-  <div class="gallery-grid">
-    <div class="art-card" onclick="window.location.href='artwork.html?piece=turtle-in-the-sea'" style="cursor:pointer;"><div class="art-thumb" style="padding:0;"><img src="images/art-turtle-in-the-sea.jpg" alt="Turtle in the sea by Elsie" style="width:100%;height:100%;object-fit:cover;display:block;"/></div><div class="art-hover"><div class="art-info"><h3>Turtle in the sea</h3><p style="color:rgba(255,255,255,0.75);font-size:0.72rem;margin:4px 0;">Acrylic on canvas &mdash; A gentle sea turtle drifting past a sun-warmed shoreline, painted in soft aquas and sandy gold.</p><p class="art-price">£15</p></div></div></div>
-    <div class="art-card" onclick="window.location.href='artwork.html?piece=lemons'" style="cursor:pointer;"><div class="art-thumb" style="padding:0;"><img src="images/art-lemons.jpg" alt="Lemons by Elsie" style="width:100%;height:100%;object-fit:cover;display:block;"/></div><div class="art-hover"><div class="art-info"><h3>Lemons</h3><p style="color:rgba(255,255,255,0.75);font-size:0.72rem;margin:4px 0;">Acrylic on canvas &mdash; Sun-ripe lemons on the branch against candy-stripe lilac, bright and juicy.</p><p class="art-price">£10</p></div></div></div>
-    <div class="art-card" onclick="window.location.href='artwork.html?piece=sunset'" style="cursor:pointer;"><div class="art-thumb" style="padding:0;"><img src="images/art-sunset.jpg" alt="Sunset by Elsie" style="width:100%;height:100%;object-fit:cover;display:block;"/></div><div class="art-hover"><div class="art-info"><h3>Sunset</h3><p style="color:rgba(255,255,255,0.75);font-size:0.72rem;margin:4px 0;">Acrylic on canvas &mdash; Palm trees silhouetted against a blazing pink and gold horizon, waves rolling in below.</p><p class="art-price">£15</p></div></div></div>
-    <div class="art-card" onclick="window.location.href='artwork.html?piece=giraffe'" style="cursor:pointer;"><div class="art-thumb" style="padding:0;"><img src="images/art-giraffe.jpg" alt="Giraffe by Elsie" style="width:100%;height:100%;object-fit:cover;display:block;"/></div><div class="art-hover"><div class="art-info"><h3>Giraffe</h3><p style="color:rgba(255,255,255,0.75);font-size:0.72rem;margin:4px 0;">Acrylic on canvas &mdash; A giraffe watching the moon rise over a glowing sunset sky, birds drifting past.</p><p class="art-price">£10</p></div></div></div>
-    <div class="art-card" onclick="window.location.href='artwork.html?piece=red-sky'" style="cursor:pointer;"><div class="art-thumb" style="padding:0;"><img src="images/art-red-sky.jpg" alt="Red Sky by Elsie" style="width:100%;height:100%;object-fit:cover;display:block;"/></div><div class="art-hover"><div class="art-info"><h3>Red Sky</h3><p style="color:rgba(255,255,255,0.75);font-size:0.72rem;margin:4px 0;">Acrylic on canvas &mdash; A fiery abstract sun over gentle painted waves, warm reds fading to soft pink.</p><p class="art-price">£10</p></div></div></div>
-    <div class="art-card" onclick="window.location.href='artwork.html?piece=starfish'" style="cursor:pointer;"><div class="art-thumb" style="padding:0;"><img src="images/art-starfish.jpg" alt="Starfish by Elsie" style="width:100%;height:100%;object-fit:cover;display:block;"/></div><div class="art-hover"><div class="art-info"><h3>Starfish</h3><p style="color:rgba(255,255,255,0.75);font-size:0.72rem;margin:4px 0;">Acrylic on canvas &mdash; Starfish caught between two leaning palms as the surf rolls onto a golden shore.</p><p class="art-price">£15</p></div></div></div>
-    <div class="art-card" onclick="window.location.href='artwork.html?piece=bubbles'" style="cursor:pointer;"><div class="art-thumb" style="padding:0;"><img src="images/art-bubbles.jpg" alt="Bubbles by Elsie" style="width:100%;height:100%;object-fit:cover;display:block;"/></div><div class="art-hover"><div class="art-info"><h3>Bubbles</h3><p style="color:rgba(255,255,255,0.75);font-size:0.72rem;margin:4px 0;">Acrylic on canvas &mdash; A shower of soft violet bubbles drifting down a clean white canvas.</p><p class="art-price">£10</p></div></div></div>
-    <div class="art-card" onclick="window.location.href='artwork.html?piece=abstract'" style="cursor:pointer;"><div class="art-thumb" style="padding:0;"><img src="images/art-abstract.jpg" alt="Abstract by Elsie" style="width:100%;height:100%;object-fit:cover;display:block;"/></div><div class="art-hover"><div class="art-info"><h3>Abstract</h3><p style="color:rgba(255,255,255,0.75);font-size:0.72rem;margin:4px 0;">Acrylic on canvas &mdash; Ribbons of pink, gold, and lilac sweeping into a small hand-painted rainbow.</p><p class="art-price">£10</p></div></div></div>
-    <div class="art-card" onclick="window.location.href='artwork.html?piece=purple-abstract'" style="cursor:pointer;"><div class="art-thumb" style="padding:0;"><img src="images/art-purple-abstract.jpg" alt="Purple abstract by Elsie" style="width:100%;height:100%;object-fit:cover;display:block;"/></div><div class="art-hover"><div class="art-info"><h3>Purple abstract</h3><p style="color:rgba(255,255,255,0.75);font-size:0.72rem;margin:4px 0;">Acrylic on canvas &mdash; Bold waves of purple rising beneath a glowing pink and gold sun.</p><p class="art-price">£10</p></div></div></div>
-  </div>
+  <div class="gallery-grid" id="gallery-grid">
+</div>
+
 </section>
 
 <!-- SHOP -->
@@ -475,9 +420,9 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
     <h2>What would you <em>like?</em></h2>
   </div>
   <div class="shop-grid">
-    <div class="shop-card"><span class="shop-icon">✏️</span><h3>Drawings & Sketches</h3><p>Detailed pencil and ink drawings — portraits, nature, characters and more. Each one unique.</p><span class="shop-from">From £50</span></div>
-    <div class="shop-card"><span class="shop-icon">🖌️</span><h3>Paintings</h3><p>Vibrant paintings full of colour and life. Acrylic, watercolour and mixed media on canvas.</p><span class="shop-from">From £75</span></div>
-    <div class="shop-card"><span class="shop-icon">💻</span><h3>Digital Art</h3><p>Bold, bright digital illustrations — perfect for printing, framing or using as gifts.</p><span class="shop-from">From £35</span></div>
+    <div class="shop-card"><span class="shop-icon">✏️</span><h3>Drawings & Sketches</h3><p>Detailed pencil and ink drawings — portraits, nature, characters and more. Each one unique.</p><span class="shop-from">Explore commissions</span></div>
+    <div class="shop-card"><span class="shop-icon">🖌️</span><h3>Paintings</h3><p>Vibrant paintings full of colour and life. Acrylic, watercolour and mixed media on canvas.</p><span class="shop-from">Explore original paintings</span></div>
+    <div class="shop-card"><span class="shop-icon">💻</span><h3>Digital Art</h3><p>Bold, bright digital illustrations — perfect for printing, framing or using as gifts.</p><span class="shop-from">Enquire about digital art</span></div>
   </div>
 </section>
 
@@ -487,18 +432,7 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
     <p class="eyebrow">✦ Custom Orders</p>
     <h2>Want something <em>just for you?</em></h2>
     <p>Commission a completely original piece — your pet, your family, your favourite place, anything you can imagine. I'll bring it to life!</p>
-    <div class="form" id="quick-form">
-      <div class="form-row">
-        <input type="text" id="q-name" placeholder="Your name"/>
-        <input type="email" id="q-email" placeholder="Your email"/>
-      </div>
-      <input type="text" id="q-idea" placeholder="What would you like me to create?"/>
-      <textarea id="q-desc" placeholder="Tell me more — colours, style, size, who it's for..."></textarea>
-      <button class="submit-btn" id="q-btn" onclick="sendQuickRequest()">Send My Request ✦</button>
-    </div>
-    <div id="quick-thanks" style="display:none;color:white;font-family:'Cormorant Garamond',serif;font-size:1.4rem;line-height:1.7;padding:10px 0;">
-      🦋 Yay! I got your request and I'll be in touch really soon.<br/>Thank you so much! 💜
-    </div>
+    <p><a class="btn-primary" href="contact.html">Request a commission</a></p>
   </div>
 </section>
 
@@ -533,7 +467,7 @@ footer{background:var(--dark);padding:64px 48px;text-align:center;}
     <a href="https://www.tiktok.com/@butterflii_artstudio" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 448 512" fill="currentColor" width="16" height="16"><path d="M448 209.9a210.1 210.1 0 0 1-122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0h88a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg></a>
   </div>
   <p class="footer-copy">© 2026 The Butterflii Art Studio · Made with 💜 by Elsie</p>
-</footer>
+<p style="text-align:center;padding:12px"><a href="contact.html" style="color:inherit;text-decoration:underline">Commissions · Partnerships · Press · Studio newsletter · Order support</a></p><p style="text-align:center"><a href="tracking.html" style="color:inherit">Track your order</a></p><p style="text-align:center"><a href="customer-care.html" style="color:inherit">Customer care · Delivery &amp; returns</a></p><p style="text-align:center"><a href="commissions.html" style="color:inherit">Commissions</a> · <a href="partnerships.html" style="color:inherit">Partnerships</a> · <a href="press.html" style="color:inherit">Press &amp; media</a></p></footer>
 
 <!-- INSTALL BANNER -->
 <div id="install-banner">
@@ -650,58 +584,6 @@ document.getElementById('nav-install-btn').addEventListener('click', function(){
   }
 });
 
-// ===== Commission request (home page) =====
-// This sends the request straight to Elsie's email using Web3Forms.
-// Elsie: paste your free Web3Forms key between the quotes on the next line.
-var BUTTERFLII_ACCESS_KEY = "PASTE-YOUR-WEB3FORMS-KEY-HERE";
-
-function sendQuickRequest(){
-  var name = document.getElementById('q-name').value.trim();
-  var email = document.getElementById('q-email').value.trim();
-  var idea = document.getElementById('q-idea').value.trim();
-  var desc = document.getElementById('q-desc').value.trim();
-  if(!name || !email){ alert('Please pop in your name and email so Elsie can reply! 💜'); return; }
-  if(!idea){ alert('Please tell Elsie what you would like her to create! 🎨'); return; }
-
-  var btn = document.getElementById('q-btn');
-  btn.textContent = 'Sending... ✦';
-  btn.disabled = true;
-
-  fetch('https://api.web3forms.com/submit', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-    body: JSON.stringify({
-      access_key: BUTTERFLII_ACCESS_KEY,
-      subject: 'New Butterflii commission request from ' + name,
-      from_name: 'Butterflii Website',
-      name: name,
-      email: email,
-      idea: idea,
-      details: desc || 'No extra details given'
-    })
-  })
-  .then(function(r){ return r.json(); })
-  .then(function(data){
-    if(data.success){
-      document.getElementById('quick-form').style.display = 'none';
-      document.getElementById('quick-thanks').style.display = 'block';
-    } else {
-      alert('Oops, something went wrong sending that. Please try again in a moment! 💜');
-      btn.textContent = 'Send My Request ✦';
-      btn.disabled = false;
-    }
-  })
-  .catch(function(){
-    alert('Oops, something went wrong sending that. Please try again in a moment! 💜');
-    btn.textContent = 'Send My Request ✦';
-    btn.disabled = false;
-  });
-}
-
-// Service Worker
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js').catch(function(){});
-}
 </script>
-</body>
+<script src="catalogue.js"></script><script src="gallery-render.js" data-layout="home"></script></body>
 </html>

@@ -1,3 +1,4 @@
+import { ArtworkWorkspace } from '../ArtworkWorkspace'
 import { useMemo, useState } from 'react'
 import { useAuth } from '../../auth/useAuth'
 import { Button } from '../../components/Button'
@@ -59,6 +60,8 @@ export function OpsAdminHome() {
         <h1 className="font-serif text-3xl">Welcome, {profile?.display_name}</h1>
         {event && <p className="text-sm text-brand-dark/50">{event.name}</p>}
       </div>
+
+      <ArtworkWorkspace />
 
       {!event ? (
         <EmptyState message="No event yet. Ask the super admin to create one." />

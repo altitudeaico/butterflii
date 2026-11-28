@@ -1,0 +1,59 @@
+name: Butterflii launch checks
+on:
+  push:
+    branches: [weekend-launch-2026-11-27, main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  catalogue:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/catalogue.test.cjs tests/public-boundary.test.cjs
+      - run: node --check gallery-render.js && node --check storefront.js && node --check contact.js
+      - run: node scripts/build-public.cjs
+  artwork:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node --experimental-strip-types --test server/artwork-handler.test.ts server/artwork-integration.test.ts
+      - run: npm ci
+        working-directory: hq
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+        working-directory: hq
+      - run: npm run build
+        working-directory: hq
+  database:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: disposable-ci-only
+          POSTGRES_DB: artwork_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PGPASSWORD: disposable-ci-only
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply migrations and verify privileges
+        run: |
+          set -euo pipefail
+          for file in artwork-test-bootstrap artwork-submissions-draft artwork-review-hardening-draft artwork-service-draft artwork-service-review-draft artwork-staging-verify artwork-behaviour-test artwork-restricted-role-draft hq-artwork-test; do
+            psql -h localhost -U postgres -d artwork_test -v ON_ERROR_STOP=1 -f "database/$file.sql"
+          done

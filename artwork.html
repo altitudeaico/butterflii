@@ -4,6 +4,15 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>The Butterflii Art Studio</title>
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Butterflii Art Studio">
+<meta property="og:title" content="The Butterflii Art Studio">
+<meta property="og:description" content="Discover a unique original painting from Butterflii Art Studio.">
+<meta property="og:image" content="https://butterfliiartstudio.com/images/art-lemons.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Discover a unique original painting from Butterflii Art Studio.">
+
 <meta name="theme-color" content="#c45ef5"/>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -94,67 +103,11 @@ footer{background:var(--dark);padding:48px;text-align:center;}
   .hamburger{display:flex;}
 }
 </style>
-</head>
+<style>nav a:focus-visible,button:focus-visible{outline:3px solid #b35ae0;outline-offset:3px}header nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}header nav a{margin:0 6px;padding:5px 0}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}</style><style>[hidden]{display:none!important}</style></head>
 <body>
 
 <!-- PROMO BANNER -->
-<script src="promo-config.js"></script>
-<div class="promo-banner" id="promo-banner" role="region" aria-label="Promotional offer">
-  <span class="promo-banner-bf" aria-hidden="true">&#129419;</span>
-  <div class="promo-banner-inner">
-    <span class="promo-banner-text">&#10022; <strong id="promo-banner-percent">20% OFF</strong> <span id="promo-banner-rest">your entire order</span></span>
-    <span class="promo-banner-code" id="promo-banner-code">CODE: ELSIE20</span>
-    <a href="shop.html" class="promo-banner-btn" id="promo-banner-btn">Shop Now</a>
-  </div>
-  <button class="promo-banner-close" id="promo-banner-close" aria-label="Dismiss promotional offer">&#10005;</button>
-</div>
-<script>
-(function(){
-  var cfg = window.PROMO_CONFIG || {};
-  var banner = document.getElementById('promo-banner');
-  if (!banner) return;
-
-  function setBannerHeight(h){
-    document.documentElement.style.setProperty('--promo-banner-h', h + 'px');
-  }
-  function hideBanner(){
-    banner.style.display = 'none';
-    setBannerHeight(0);
-  }
-
-  var dismissed = false;
-  try { dismissed = sessionStorage.getItem('promoBannerDismissed') === '1'; } catch(e){}
-
-  if (cfg.enabled === false || dismissed) {
-    hideBanner();
-  } else {
-    var percentEl = document.getElementById('promo-banner-percent');
-    var restEl = document.getElementById('promo-banner-rest');
-    var codeEl = document.getElementById('promo-banner-code');
-    var btnEl = document.getElementById('promo-banner-btn');
-    if (percentEl && cfg.discountPercent) percentEl.textContent = cfg.discountPercent + ' OFF';
-    if (restEl && cfg.discountRest) restEl.textContent = cfg.discountRest;
-    if (codeEl && cfg.code) codeEl.textContent = 'CODE: ' + cfg.code;
-    if (btnEl && cfg.shopUrl) btnEl.setAttribute('href', cfg.shopUrl);
-
-    var closeBtn = document.getElementById('promo-banner-close');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', function(){
-        hideBanner();
-        try { sessionStorage.setItem('promoBannerDismissed', '1'); } catch(e){}
-      });
-    }
-
-    setBannerHeight(banner.offsetHeight);
-    if (window.ResizeObserver) {
-      var ro = new ResizeObserver(function(){ setBannerHeight(banner.offsetHeight); });
-      ro.observe(banner);
-    } else {
-      window.addEventListener('resize', function(){ setBannerHeight(banner.offsetHeight); });
-    }
-  }
-})();
-</script>
+<!-- Promotional offers disabled pending approval. -->
 
 
 <nav>
@@ -166,7 +119,7 @@ footer{background:var(--dark);padding:48px;text-align:center;}
     <li><a href="index.html">Home</a></li>
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="shop.html">Shop</a></li>
-  </ul>
+  <li><a href="commissions.html">Commissions</a></li><li><a href="contact.html">Contact</a></li></ul>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
 
@@ -174,14 +127,14 @@ footer{background:var(--dark);padding:48px;text-align:center;}
   <a href="index.html" onclick="closeMenu()">Home</a>
   <a href="gallery.html" onclick="closeMenu()">Gallery</a>
   <a href="shop.html" onclick="closeMenu()">Shop</a>
-</div>
+<a href="commissions.html">Commissions</a><a href="contact.html">Contact</a></div>
 
 <section class="piece-section">
   <a href="gallery.html" class="back-link">&larr; Back to the Gallery</a>
 
-  <div class="piece-wrap" id="piece-wrap">
+  <div class="piece-wrap" id="piece-wrap" style="display:none">
     <div class="piece-img-wrap">
-      <img id="piece-img" src="" alt="">
+      <img id="piece-img" alt="">
     </div>
     <div>
       <div class="piece-medium" id="piece-medium"></div>
@@ -189,9 +142,9 @@ footer{background:var(--dark);padding:48px;text-align:center;}
       <p class="piece-desc" id="piece-desc"></p>
       <div class="piece-footer">
         <div class="piece-price" id="piece-price"></div>
-        <a href="#" id="piece-buy" class="buy-btn-lg">Buy Now &rarr;</a>
+        <a href="contact.html" id="piece-buy" class="buy-btn-lg">Enquire about availability</a>
       </div>
-      <p class="piece-note">One of a kind. Once it's sold, it's gone.</p>
+      <div style="margin:20px 0"><label for="delivery-region">Delivery destination</label><select id="delivery-region" style="display:block;width:100%;padding:12px;border:1px solid #9d83a8;border-radius:8px;font:inherit"><option value="">Choose destination</option><option>UK mainland</option><option>Northern Ireland or remote UK</option><option>Europe</option><option>USA or Canada</option><option>Rest of world</option></select><p id="delivery-note" role="status">Delivery is quoted separately before payment.</p></div><button type="button" id="share-piece" style="margin:16px 0;padding:10px 18px;border:1px solid #76249d;border-radius:24px;background:white;color:#76249d;cursor:pointer">Share artwork</button><p id="share-status" role="status"></p><p class="piece-note">One of a kind. Once it's sold, it's gone.</p>
     </div>
   </div>
 
@@ -208,42 +161,41 @@ footer{background:var(--dark);padding:48px;text-align:center;}
     <a href="https://www.tiktok.com/@butterflii_artstudio" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 448 512" fill="currentColor" width="16" height="16"><path d="M448 209.9a210.1 210.1 0 0 1-122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0h88a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg></a>
   </div>
   <p class="footer-copy">© 2026 The Butterflii Art Studio · Made with 💜 by Elsie</p>
-</footer>
+<p style="text-align:center;padding:12px"><a href="contact.html" style="color:inherit;text-decoration:underline">Commissions · Partnerships · Press · Studio newsletter · Order support</a></p><p style="text-align:center"><a href="tracking.html" style="color:inherit">Track your order</a></p><p style="text-align:center"><a href="customer-care.html" style="color:inherit">Customer care · Delivery &amp; returns</a></p><p style="text-align:center"><a href="commissions.html" style="color:inherit">Commissions</a> · <a href="partnerships.html" style="color:inherit">Partnerships</a> · <a href="press.html" style="color:inherit">Press &amp; media</a></p></footer>
 
+<script src="catalogue.js"></script>
 <script>
 function toggleMenu(){document.getElementById("mobile-menu").classList.toggle("open");}
 function closeMenu(){document.getElementById("mobile-menu").classList.remove("open");}
 
-const ARTWORKS = {
-  'turtle-in-the-sea': { name: 'Turtle in the sea', medium: 'Acrylic on canvas', price: '£15', image: 'images/art-turtle-in-the-sea.jpg', stripe: 'https://buy.stripe.com/aFacN4fuG3qd8Ee8ZdejK00', desc: 'A gentle sea turtle drifting past a sun-warmed shoreline, painted in soft aquas and sandy gold.' },
-  'lemons': { name: 'Lemons', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-lemons.jpg', stripe: 'https://buy.stripe.com/eVqaEW5U67Gtf2C7V9ejK01', desc: 'Sun-ripe lemons on the branch against candy-stripe lilac, bright and juicy.' },
-  'sunset': { name: 'Sunset', medium: 'Acrylic on canvas', price: '£15', image: 'images/art-sunset.jpg', stripe: 'https://buy.stripe.com/3cI9AS82ee4R4nY6R5ejK02', desc: 'Palm trees silhouetted against a blazing pink and gold horizon, waves rolling in below.' },
-  'giraffe': { name: 'Giraffe', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-giraffe.jpg', stripe: 'https://buy.stripe.com/3cI6oG1DQgcZcUuejxejK03', desc: 'A giraffe watching the moon rise over a glowing sunset sky, birds drifting past.' },
-  'red-sky': { name: 'Red Sky', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-red-sky.jpg', stripe: 'https://buy.stripe.com/9B6bJ05U60e18EedftejK04', desc: 'A fiery abstract sun over gentle painted waves, warm reds fading to soft pink.' },
-  'starfish': { name: 'Starfish', medium: 'Acrylic on canvas', price: '£15', image: 'images/art-starfish.jpg', stripe: 'https://buy.stripe.com/cNidR83LYbWJ9Iia3hejK05', desc: 'Starfish caught between two leaning palms as the surf rolls onto a golden shore.' },
-  'bubbles': { name: 'Bubbles', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-bubbles.jpg', stripe: 'https://buy.stripe.com/4gM9AS1DQ9OB5s23ETejK06', desc: 'A shower of soft violet bubbles drifting down a clean white canvas.' },
-  'abstract': { name: 'Abstract', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-abstract.jpg', stripe: 'https://buy.stripe.com/7sY6oG1DQaSFg6G5N1ejK07', desc: 'Ribbons of pink, gold, and lilac sweeping into a small hand-painted rainbow.' },
-  'purple-abstract': { name: 'Purple abstract', medium: 'Acrylic on canvas', price: '£10', image: 'images/art-purple-abstract.jpg', stripe: 'https://buy.stripe.com/3cIbJ0ciu7Gt3jUgrFejK08', desc: 'Bold waves of purple rising beneath a glowing pink and gold sun.' }
-};
+const ARTWORKS = window.ARTWORKS;
 
 function loadPiece() {
   const slug = new URLSearchParams(window.location.search).get('piece');
-  const piece = ARTWORKS[slug];
+  const piece = ARTWORKS && Object.prototype.hasOwnProperty.call(ARTWORKS, slug) ? ARTWORKS[slug] : null;
   if (!piece) {
     document.getElementById('piece-wrap').style.display = 'none';
     document.getElementById('piece-notfound').style.display = 'block';
     return;
   }
+  document.getElementById('piece-wrap').style.display = '';
   document.title = piece.name + ' — The Butterflii Art Studio';
   document.getElementById('piece-img').src = piece.image;
   document.getElementById('piece-img').alt = piece.name + ' painting';
   document.getElementById('piece-medium').textContent = piece.medium;
   document.getElementById('piece-name').textContent = piece.name;
   document.getElementById('piece-desc').textContent = piece.desc;
-  document.getElementById('piece-price').textContent = piece.price;
-  document.getElementById('piece-buy').href = piece.stripe;
+  document.getElementById('piece-price').textContent = ['sold','reserved','display'].includes(piece.status) ? '' : piece.price;
+  const buy = document.getElementById('piece-buy');
+  buy.href = 'contact.html?category=General%20enquiry&piece='+encodeURIComponent(slug);
+  buy.textContent = 'Enquire about availability';
+  const region=document.getElementById('delivery-region');
+  if(['sold','reserved','display'].includes(piece.status)){buy.hidden=true;buy.style.display='none';region.parentElement.hidden=true;region.parentElement.style.display='none';document.querySelector('.piece-note').textContent=({sold:'Sold',reserved:'Currently reserved',display:'Gallery only'})[piece.status];return;}
+  document.querySelector('.piece-note').textContent=piece.status==='available'?'One original available, subject to confirmation.':'Availability is subject to studio confirmation.';
+  region.addEventListener('change',()=>{buy.href='contact.html?category=Delivery%20quote&piece='+encodeURIComponent(slug)+'&region='+encodeURIComponent(region.value);buy.textContent='Request availability and delivery quote';document.getElementById('delivery-note').textContent='We will confirm delivery costs and availability before you pay. International orders may incur local import charges.';});
 }
 loadPiece();
+document.getElementById('share-piece').addEventListener('click',async()=>{const slug=new URLSearchParams(location.search).get('piece');if(!ARTWORKS||!Object.prototype.hasOwnProperty.call(ARTWORKS,slug))return;const shareUrl=new URL('art/'+encodeURIComponent(slug)+'.html',location.href).href;try{if(navigator.share){await navigator.share({title:document.title,url:shareUrl});}else if(navigator.clipboard){await navigator.clipboard.writeText(shareUrl);document.getElementById('share-status').textContent='Artwork link copied.';}else{prompt('Copy artwork link',shareUrl);}}catch(e){if(e.name!=='AbortError')prompt('Copy artwork link',shareUrl);}});
 </script>
 </body>
 </html>

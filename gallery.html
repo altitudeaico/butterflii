@@ -4,6 +4,15 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Gallery — The Butterflii Art Studio</title>
+<meta name="robots" content="noindex, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Butterflii Art Studio">
+<meta property="og:title" content="Gallery — The Butterflii Art Studio">
+<meta property="og:description" content="Explore the Butterflii collection of original acrylic paintings.">
+<meta property="og:image" content="https://butterfliiartstudio.com/images/art-lemons.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="Explore the Butterflii collection of original acrylic paintings.">
+
 <meta name="theme-color" content="#c45ef5"/>
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -138,67 +147,11 @@ footer{background:var(--dark);padding:48px;text-align:center;}
   .hamburger{display:flex;}
 }
 </style>
-</head>
+<style>nav a:focus-visible,button:focus-visible{outline:3px solid #b35ae0;outline-offset:3px}header nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}header nav a{margin:0 6px;padding:5px 0}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}</style></head>
 <body>
 
 <!-- PROMO BANNER -->
-<script src="promo-config.js"></script>
-<div class="promo-banner" id="promo-banner" role="region" aria-label="Promotional offer">
-  <span class="promo-banner-bf" aria-hidden="true">&#129419;</span>
-  <div class="promo-banner-inner">
-    <span class="promo-banner-text">&#10022; <strong id="promo-banner-percent">20% OFF</strong> <span id="promo-banner-rest">your entire order</span></span>
-    <span class="promo-banner-code" id="promo-banner-code">CODE: ELSIE20</span>
-    <a href="shop.html" class="promo-banner-btn" id="promo-banner-btn">Shop Now</a>
-  </div>
-  <button class="promo-banner-close" id="promo-banner-close" aria-label="Dismiss promotional offer">&#10005;</button>
-</div>
-<script>
-(function(){
-  var cfg = window.PROMO_CONFIG || {};
-  var banner = document.getElementById('promo-banner');
-  if (!banner) return;
-
-  function setBannerHeight(h){
-    document.documentElement.style.setProperty('--promo-banner-h', h + 'px');
-  }
-  function hideBanner(){
-    banner.style.display = 'none';
-    setBannerHeight(0);
-  }
-
-  var dismissed = false;
-  try { dismissed = sessionStorage.getItem('promoBannerDismissed') === '1'; } catch(e){}
-
-  if (cfg.enabled === false || dismissed) {
-    hideBanner();
-  } else {
-    var percentEl = document.getElementById('promo-banner-percent');
-    var restEl = document.getElementById('promo-banner-rest');
-    var codeEl = document.getElementById('promo-banner-code');
-    var btnEl = document.getElementById('promo-banner-btn');
-    if (percentEl && cfg.discountPercent) percentEl.textContent = cfg.discountPercent + ' OFF';
-    if (restEl && cfg.discountRest) restEl.textContent = cfg.discountRest;
-    if (codeEl && cfg.code) codeEl.textContent = 'CODE: ' + cfg.code;
-    if (btnEl && cfg.shopUrl) btnEl.setAttribute('href', cfg.shopUrl);
-
-    var closeBtn = document.getElementById('promo-banner-close');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', function(){
-        hideBanner();
-        try { sessionStorage.setItem('promoBannerDismissed', '1'); } catch(e){}
-      });
-    }
-
-    setBannerHeight(banner.offsetHeight);
-    if (window.ResizeObserver) {
-      var ro = new ResizeObserver(function(){ setBannerHeight(banner.offsetHeight); });
-      ro.observe(banner);
-    } else {
-      window.addEventListener('resize', function(){ setBannerHeight(banner.offsetHeight); });
-    }
-  }
-})();
-</script>
+<!-- Promotional offers disabled pending approval. -->
 
 
 <nav>
@@ -210,7 +163,7 @@ footer{background:var(--dark);padding:48px;text-align:center;}
     <li><a href="index.html">Home</a></li>
     <li><a href="gallery.html" class="active" style="color:var(--purple);">Gallery</a></li>
     <li><a href="shop.html">Shop</a></li>
-  </ul>
+  <li><a href="commissions.html">Commissions</a></li><li><a href="contact.html">Contact</a></li></ul>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
 
@@ -218,7 +171,7 @@ footer{background:var(--dark);padding:48px;text-align:center;}
   <a href="index.html" onclick="closeMenu()">Home</a>
   <a href="gallery.html" class="active" onclick="closeMenu()">Gallery</a>
   <a href="shop.html" onclick="closeMenu()">Shop</a>
-</div>
+<a href="commissions.html">Commissions</a><a href="contact.html">Contact</a></div>
 
 <div class="gallery-hero">
   <div class="gallery-hero-inner">
@@ -237,160 +190,8 @@ footer{background:var(--dark);padding:48px;text-align:center;}
 </div>
 
 <section class="gallery-section">
-  <div class="gallery-grid" id="gallery-grid">
-
-    <div class="art-card" data-medium="acrylic" onclick="window.location.href='artwork.html?piece=turtle-in-the-sea'" style="cursor:pointer;">
-      <div class="art-img-wrap">
-        <img src="images/art-turtle-in-the-sea.jpg" alt="Turtle in the sea painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Turtle in the sea</div>
-        <div class="art-desc">A gentle sea turtle drifting past a sun-warmed shoreline, painted in soft aquas and sandy gold.</div>
-        <div class="art-footer">
-          <div class="art-price">£15</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=turtle-in-the-sea'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic" onclick="window.location.href='artwork.html?piece=lemons'" style="cursor:pointer;">
-      <div class="art-img-wrap">
-        <img src="images/art-lemons.jpg" alt="Lemons painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Lemons</div>
-        <div class="art-desc">Sun-ripe lemons on the branch against candy-stripe lilac, bright and juicy.</div>
-        <div class="art-footer">
-          <div class="art-price">£10</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=lemons'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic" onclick="window.location.href='artwork.html?piece=sunset'" style="cursor:pointer;">
-      <div class="art-img-wrap">
-        <img src="images/art-sunset.jpg" alt="Sunset painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Sunset</div>
-        <div class="art-desc">Palm trees silhouetted against a blazing pink and gold horizon, waves rolling in below.</div>
-        <div class="art-footer">
-          <div class="art-price">£15</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=sunset'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic" onclick="window.location.href='artwork.html?piece=giraffe'" style="cursor:pointer;">
-      <div class="art-img-wrap">
-        <img src="images/art-giraffe.jpg" alt="Giraffe painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Giraffe</div>
-        <div class="art-desc">A giraffe watching the moon rise over a glowing sunset sky, birds drifting past.</div>
-        <div class="art-footer">
-          <div class="art-price">£10</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=giraffe'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic" onclick="window.location.href='artwork.html?piece=red-sky'" style="cursor:pointer;">
-      <div class="art-img-wrap">
-        <img src="images/art-red-sky.jpg" alt="Red Sky painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Red Sky</div>
-        <div class="art-desc">A fiery abstract sun over gentle painted waves, warm reds fading to soft pink.</div>
-        <div class="art-footer">
-          <div class="art-price">£10</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=red-sky'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic" onclick="window.location.href='artwork.html?piece=starfish'" style="cursor:pointer;">
-      <div class="art-img-wrap">
-        <img src="images/art-starfish.jpg" alt="Starfish painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Starfish</div>
-        <div class="art-desc">Starfish caught between two leaning palms as the surf rolls onto a golden shore.</div>
-        <div class="art-footer">
-          <div class="art-price">£15</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=starfish'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic" onclick="window.location.href='artwork.html?piece=bubbles'" style="cursor:pointer;">
-      <div class="art-img-wrap">
-        <img src="images/art-bubbles.jpg" alt="Bubbles painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Bubbles</div>
-        <div class="art-desc">A shower of soft violet bubbles drifting down a clean white canvas.</div>
-        <div class="art-footer">
-          <div class="art-price">£10</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=bubbles'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic" onclick="window.location.href='artwork.html?piece=abstract'" style="cursor:pointer;">
-      <div class="art-img-wrap">
-        <img src="images/art-abstract.jpg" alt="Abstract painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Abstract</div>
-        <div class="art-desc">Ribbons of pink, gold, and lilac sweeping into a small hand-painted rainbow.</div>
-        <div class="art-footer">
-          <div class="art-price">£10</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=abstract'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-    <div class="art-card" data-medium="acrylic" onclick="window.location.href='artwork.html?piece=purple-abstract'" style="cursor:pointer;">
-      <div class="art-img-wrap">
-        <img src="images/art-purple-abstract.jpg" alt="Purple abstract painting">
-      </div>
-      <div class="art-body">
-        <div class="art-medium">Acrylic on canvas</div>
-        <div class="art-name">Purple abstract</div>
-        <div class="art-desc">Bold waves of purple rising beneath a glowing pink and gold sun.</div>
-        <div class="art-footer">
-          <div class="art-price">£10</div>
-          <button class="enquire-btn" onclick="window.location.href='artwork.html?piece=purple-abstract'">Buy Now &rarr;</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="gallery-grid" id="gallery-grid"></div>
 </section>
-
-<!-- ENQUIRE MODAL -->
-<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal()">×</button>
-    <div id="modal-form-wrap">
-      <div class="modal-medium" id="modal-medium"></div>
-      <h2 id="modal-title"></h2>
-      <div class="modal-price" id="modal-price"></div>
-      <p class="modal-desc" id="modal-desc"></p>
-      <div class="modal-form">
-        <input type="text" id="enq-name" placeholder="Your name"/>
-        <input type="email" id="enq-email" placeholder="Your email"/>
-        <textarea id="enq-msg" placeholder="Any questions or special requests?"></textarea>
-        <button class="modal-submit" onclick="submitEnquiry()">Send Enquiry ✦</button>
-      </div>
-    </div>
-    <div class="modal-success" id="modal-success">
-      <div class="tick">💜</div>
-      <h3>Thank you!</h3>
-      <p>Elsie will be in touch about your enquiry very soon!</p>
-    </div>
-  </div>
-</div>
 
 <footer>
   <div class="footer-logo-text">The <em>Butterflii</em> Art Studio</div>
@@ -399,36 +200,12 @@ footer{background:var(--dark);padding:48px;text-align:center;}
     <a href="https://www.tiktok.com/@butterflii_artstudio" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 448 512" fill="currentColor" width="16" height="16"><path d="M448 209.9a210.1 210.1 0 0 1-122.8-39.3V349.4A162.6 162.6 0 1 1 185 188.3V278.2a74.6 74.6 0 1 0 52.2 71.2V0h88a121.2 121.2 0 0 0 1.9 22.2h0A122.2 122.2 0 0 0 381 102.4a121.4 121.4 0 0 0 67 20.1z"/></svg></a>
   </div>
   <p class="footer-copy">© 2026 The Butterflii Art Studio · Made with 💜 by Elsie</p>
-</footer>
+<p><a href="contact.html" style="color:inherit">Contact the studio</a> · <a href="tracking.html" style="color:inherit">Track your order</a></p><p style="text-align:center"><a href="customer-care.html" style="color:inherit">Customer care · Delivery &amp; returns</a></p><p style="text-align:center"><a href="commissions.html" style="color:inherit">Commissions</a> · <a href="partnerships.html" style="color:inherit">Partnerships</a> · <a href="press.html" style="color:inherit">Press &amp; media</a></p></footer>
 
 <script>
 function toggleMenu(){document.getElementById("mobile-menu").classList.toggle("open");}
 function closeMenu(){document.getElementById("mobile-menu").classList.remove("open");}
 
-function openModal(name, medium, price, desc) {
-  document.getElementById('modal-title').textContent = name;
-  document.getElementById('modal-medium').textContent = medium;
-  document.getElementById('modal-price').textContent = price;
-  document.getElementById('modal-desc').textContent = desc;
-  document.getElementById('modal-form-wrap').style.display = 'block';
-  document.getElementById('modal-success').style.display = 'none';
-  document.getElementById('modal').classList.add('show');
-  document.body.style.overflow = 'hidden';
-}
-function closeModal() {
-  document.getElementById('modal').classList.remove('show');
-  document.body.style.overflow = '';
-}
-function closeModalOutside(e) {
-  if (e.target === document.getElementById('modal')) closeModal();
-}
-function submitEnquiry() {
-  var name = document.getElementById('enq-name').value.trim();
-  var email = document.getElementById('enq-email').value.trim();
-  if (!name || !email) { alert('Please enter your name and email!'); return; }
-  document.getElementById('modal-form-wrap').style.display = 'none';
-  document.getElementById('modal-success').style.display = 'block';
-}
 function filterGallery(type, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
@@ -441,5 +218,5 @@ function filterGallery(type, btn) {
   });
 }
 </script>
-</body>
+<script src="catalogue.js"></script><script src="gallery-render.js" data-layout="gallery"></script></body>
 </html>
