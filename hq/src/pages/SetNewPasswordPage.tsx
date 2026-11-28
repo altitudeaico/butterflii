@@ -25,13 +25,24 @@ export function SetNewPasswordPage() {
       return
     }
     setSubmitting(true)
-    const { error } = await supabase.auth.updateUser({ password })
-    setSubmitting(false)
-    if (error) {
-      setError('Could not set that password, try again.')
-      return
+    try {
+      const { error } = await supabase.auth.updateUser({ password })
+      if (error) {
+        setError(error.code === 'same_password'
+          ? 'Choose a password different from your current password.'
+          : error.code === 'weak_password'
+          ? 'Choose a stronger password.'
+          : error.code === 'session_not_found' || error.code === 'session_expired'
+          ? 'Your recovery session has expired. Request a new password reset link.'
+          : 'Could not save your password. Please try again.')
+        return
+      }
+      completePasswordRecovery()
+    } catch {
+      setError('Could not connect. Check your internet connection and try again.')
+    } finally {
+      setSubmitting(false)
     }
-    completePasswordRecovery()
   }
 
   return (
