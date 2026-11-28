@@ -65,9 +65,9 @@ export function ArtworkWorkspace() {
               <button className={action} disabled={review.isPending} onClick={() => review.mutate({ id: item.id, status: 'approved', note: notes[item.id] ?? '' })}>Approve</button>
               <button className={action} disabled={review.isPending || !notes[item.id]?.trim()} onClick={() => review.mutate({ id: item.id, status: 'changes_requested', note: notes[item.id] ?? '' })}>Request changes</button>
             </div>
-          </>
+          </>}
         </article>)}
-      </>}
+      </>
     </section>
   )
 }
