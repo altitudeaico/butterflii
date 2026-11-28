@@ -10,7 +10,7 @@ No shared permission changes or new paid infrastructure are authorised by this c
 ## Outstanding live checks
 - Existing parent sign-in and session refresh.
 - Existing child and surface sign-in; do not reset or reprovision working devices solely for testing.
-- Physical TV home, Academy and existing navigation.
+- Physical TV smoke test: PASS, owner confirmed on 28 November 2026 that Family OS TV loaded and works fine. Individual Academy and navigation checks were not separately reported.
 - Existing Family Chat and media viewing, where configured.
 - Review errors after checks; do not record tokens or family data.
 
