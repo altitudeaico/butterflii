@@ -147,7 +147,7 @@ footer{background:var(--dark);padding:48px;text-align:center;}
   .hamburger{display:flex;}
 }
 </style>
-</head>
+<style>nav a:focus-visible,button:focus-visible{outline:3px solid #b35ae0;outline-offset:3px}header nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}header nav a{margin:0 6px;padding:5px 0}@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}</style></head>
 <body>
 
 <!-- PROMO BANNER -->
@@ -163,7 +163,7 @@ footer{background:var(--dark);padding:48px;text-align:center;}
     <li><a href="index.html">Home</a></li>
     <li><a href="gallery.html" class="active" style="color:var(--purple);">Gallery</a></li>
     <li><a href="shop.html">Shop</a></li>
-  </ul>
+  <li><a href="commissions.html">Commissions</a></li><li><a href="contact.html">Contact</a></li></ul>
   <button class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></button>
 </nav>
 
@@ -171,7 +171,7 @@ footer{background:var(--dark);padding:48px;text-align:center;}
   <a href="index.html" onclick="closeMenu()">Home</a>
   <a href="gallery.html" class="active" onclick="closeMenu()">Gallery</a>
   <a href="shop.html" onclick="closeMenu()">Shop</a>
-</div>
+<a href="commissions.html">Commissions</a><a href="contact.html">Contact</a></div>
 
 <div class="gallery-hero">
   <div class="gallery-hero-inner">
