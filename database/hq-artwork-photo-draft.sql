@@ -14,13 +14,13 @@ create policy butterflii_photo_read on storage.objects for select to authenticat
  and exists(select 1 from hq.profiles p where p.id=auth.uid()
  and (p.role in ('super_admin','ops_admin') or (p.role='artist' and p.id=s.artist_id))))
 );
-create function hq.require_artwork_photo() returns trigger language plpgsql security definer set search_path='' as $
+create function hq.require_artwork_photo() returns trigger language plpgsql security definer set search_path='' as $photo$
 begin
  if new.status='approved' and old.status is distinct from new.status and not exists(
  select 1 from storage.objects o where o.bucket_id='butterflii-artwork-private' and o.name=new.artist_id::text||'/'||new.id::text||'/photo'
  ) then raise exception 'Attach a photo before approval' using errcode='23514'; end if;
  return new;
-end $;
+end $photo$;
 revoke all on function hq.require_artwork_photo() from public,anon,authenticated;
 create trigger require_artwork_photo before update of status on hq.artwork_submissions for each row execute function hq.require_artwork_photo();
 commit;
