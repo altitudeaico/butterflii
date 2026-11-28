@@ -1,3 +1,4 @@
+import { CatalogueWorkspace } from '../CatalogueWorkspace'
 import { useAuth } from '../../auth/useAuth'
 import { ArtworkWorkspace } from '../ArtworkWorkspace'
 
@@ -10,5 +11,6 @@ export function ArtistHome() {
     </header>
     <p className="text-sm text-brand-dark/70">Give your artwork a name, tell us about it and choose a price. Mum or Dad can review it.</p>
     <ArtworkWorkspace />
+    <CatalogueWorkspace />
   </main>
 }
