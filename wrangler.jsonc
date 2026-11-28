@@ -1,0 +1,10 @@
+{
+  "name": "butterflii",
+  "compatibility_date": "2026-11-27",
+  "workers_dev": true,
+  "assets": {
+    "directory": ".",
+    "html_handling": "none",
+    "not_found_handling": "none"
+  }
+}
