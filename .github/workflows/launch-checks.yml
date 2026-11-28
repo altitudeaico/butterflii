@@ -50,6 +50,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Apply migrations and verify privileges
         run: |
-          for file in artwork-test-bootstrap artwork-submissions-draft artwork-review-hardening-draft artwork-service-draft artwork-service-review-draft artwork-staging-verify artwork-behaviour-test; do
+          set -euo pipefail
+          for file in artwork-test-bootstrap artwork-submissions-draft artwork-review-hardening-draft artwork-service-draft artwork-service-review-draft artwork-staging-verify artwork-behaviour-test artwork-restricted-role-draft; do
             psql -h localhost -U postgres -d artwork_test -v ON_ERROR_STOP=1 -f "database/$file.sql"
           done
