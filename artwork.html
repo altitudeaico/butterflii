@@ -194,7 +194,7 @@ function loadPiece() {
   region.addEventListener('change',()=>{buy.href='contact.html?category=Delivery%20quote&piece='+encodeURIComponent(slug)+'&region='+encodeURIComponent(region.value);buy.textContent='Request availability and delivery quote';document.getElementById('delivery-note').textContent='We will confirm delivery costs and availability before you pay. International orders may incur local import charges.';});
 }
 loadPiece();
-document.getElementById('share-piece').addEventListener('click',async()=>{try{if(navigator.share){await navigator.share({title:document.title,url:location.href});}else if(navigator.clipboard){await navigator.clipboard.writeText(location.href);document.getElementById('share-status').textContent='Artwork link copied.';}else{prompt('Copy artwork link',location.href);}}catch(e){if(e.name!=='AbortError')prompt('Copy artwork link',location.href);}});
+document.getElementById('share-piece').addEventListener('click',async()=>{const slug=new URLSearchParams(location.search).get('piece');if(!ARTWORKS||!Object.prototype.hasOwnProperty.call(ARTWORKS,slug))return;const shareUrl=new URL('art/'+encodeURIComponent(slug)+'.html',location.href).href;try{if(navigator.share){await navigator.share({title:document.title,url:shareUrl});}else if(navigator.clipboard){await navigator.clipboard.writeText(shareUrl);document.getElementById('share-status').textContent='Artwork link copied.';}else{prompt('Copy artwork link',shareUrl);}}catch(e){if(e.name!=='AbortError')prompt('Copy artwork link',shareUrl);}});
 </script>
 </body>
 </html>
