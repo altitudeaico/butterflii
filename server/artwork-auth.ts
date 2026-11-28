@@ -1,4 +1,4 @@
-import type { ArtworkDependencies } from './artwork-handler'
+import type { ArtworkDependencies } from './artwork-handler.ts'
 
 type Mapping = { memberId: string; role: 'artist' | 'parent' }
 export interface AuthConfig {
