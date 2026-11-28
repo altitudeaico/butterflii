@@ -24,7 +24,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - run: node --experimental-strip-types --test server/artwork-handler.test.ts server/artwork-integration.test.ts hq/src/lib/inventory-status.test.ts server/inventory-handler.test.ts server/inventory-auth.test.ts
+      - run: node --experimental-strip-types --test server/artwork-handler.test.ts server/artwork-integration.test.ts hq/src/lib/inventory-status.test.ts server/inventory-handler.test.ts server/inventory-auth.test.ts server/inventory-endpoint.test.ts
       - run: npm ci
         working-directory: hq
       - name: Audit production dependencies
