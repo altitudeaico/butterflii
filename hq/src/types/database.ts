@@ -24,9 +24,12 @@ export type ArtworkRow = {
   created_at: string
 }
 
+export type PublicationRow = { artwork_id: string; requested_by: string; requested_at: string; price_pence: number; status: 'queued' | 'published' | 'failed'; product_id: string | null }
+
 export type Database = {
   hq: {
     Tables: {
+      publication_requests: { Row: PublicationRow; Insert: never; Update: never; Relationships: [] }
       artwork_submissions: {
         Row: ArtworkRow
         Insert: { title: string; description?: string; proposed_price_pence: number }
@@ -168,6 +171,7 @@ export type Database = {
     }
     Views: Record<string, never>
     Functions: {
+      request_publication: { Args: { p_id: string; p_price: number; p_stock_confirmed: boolean }; Returns: PublicationRow[] }
       resubmit_artwork: {
         Args: { p_id: string; p_title: string; p_description: string; p_price: number }
         Returns: ArtworkRow[]
