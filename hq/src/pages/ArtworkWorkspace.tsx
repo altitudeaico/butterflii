@@ -1,3 +1,4 @@
+import { ArtworkPhoto } from './ArtworkPhoto'
 import { useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useAuth } from '../auth/useAuth'
@@ -58,6 +59,7 @@ export function ArtworkWorkspace() {
         {query.isSuccess && query.data.length === 0 && <p>No artwork submissions yet.</p>}
         {query.data?.map(item => <article key={item.id} className="space-y-2 rounded-2xl border border-brand-pink/30 p-4">
           <h3 className="font-semibold">{item.title}</h3>
+          <ArtworkPhoto artistId={item.artist_id} id={item.id} canUpload={artist && item.status === 'pending'} />
           <p>{item.description}</p>
           <p>{(item.proposed_price_pence / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })}</p>
           <p>{item.status === 'pending' ? 'Waiting for approval' : item.status === 'approved' ? 'Approved (not yet published)' : 'Changes requested'}</p>
