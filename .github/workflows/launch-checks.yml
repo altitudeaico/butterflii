@@ -54,6 +54,9 @@ jobs:
       - name: Apply migrations and verify privileges
         run: |
           set -euo pipefail
-          for file in artwork-test-bootstrap artwork-submissions-draft artwork-review-hardening-draft artwork-service-draft artwork-service-review-draft artwork-staging-verify artwork-behaviour-test artwork-restricted-role-draft hq-artwork-test stock-reservation-test; do
+          for file in artwork-test-bootstrap artwork-submissions-draft artwork-review-hardening-draft artwork-service-draft artwork-service-review-draft artwork-staging-verify artwork-behaviour-test artwork-restricted-role-draft hq-artwork-test; do
             psql -h localhost -U postgres -d artwork_test -v ON_ERROR_STOP=1 -f "database/$file.sql"
           done
+
+          createdb -h localhost -U postgres stock_reservation_test
+          psql -h localhost -U postgres -d stock_reservation_test -v ON_ERROR_STOP=1 -f database/stock-reservation-test.sql
