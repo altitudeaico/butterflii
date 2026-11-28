@@ -6,6 +6,8 @@ const merch=document.getElementById('merchandise');if(merch)for(const p of windo
 
 if(new URLSearchParams(location.search).get('basket-test')==='1'&&window.ButterfliiBasket){
 document.getElementById('basket-preview').hidden=false;
+document.getElementById('basket-clear').onclick=()=>window.ButterfliiBasket.clear();
+document.getElementById('basket-checkout').onclick=()=>{document.getElementById('basket-message').textContent='Your basket is ready. Delivery and secure payment are not yet enabled.';};
 function addButton(card,slug){const b=document.createElement('button');b.type='button';b.textContent='Add to test basket';b.onclick=()=>{document.getElementById('status').textContent=window.ButterfliiBasket.add(slug)?'Added to test basket.':'Quantity limit reached.';};card.querySelector('div').append(b);}
 Object.keys(window.ARTWORKS||{}).forEach((slug,i)=>addButton(grid.children[i],slug));
 (window.MERCHANDISE||[]).forEach((p,i)=>addButton(merch.children[i],p.id));
