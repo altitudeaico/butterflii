@@ -1,6 +1,7 @@
 import { supabase } from '../supabase'
 
 export type ArtworkSubmission = {
+  artist_id: string
   id: string
   title: string
   description: string
