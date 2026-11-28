@@ -11,9 +11,28 @@ export type EventMode = 'prep' | 'event' | 'wrapped'
 export type TaskStatus = 'todo' | 'doing' | 'done' | 'blocked'
 export type TaskOrigin = 'adult' | 'artist_idea'
 
+export type ArtworkRow = {
+  id: string
+  artist_id: string
+  title: string
+  description: string
+  proposed_price_pence: number
+  status: 'pending' | 'approved' | 'changes_requested'
+  reviewed_by: string | null
+  reviewed_at: string | null
+  review_note: string | null
+  created_at: string
+}
+
 export type Database = {
   hq: {
     Tables: {
+      artwork_submissions: {
+        Row: ArtworkRow
+        Insert: { title: string; description?: string; proposed_price_pence: number }
+        Update: never
+        Relationships: []
+      }
       profiles: {
         Row: {
           id: string
@@ -148,7 +167,12 @@ export type Database = {
       }
     }
     Views: Record<string, never>
-    Functions: Record<string, never>
+    Functions: {
+      review_artwork: {
+        Args: { p_id: string; p_status: 'approved' | 'changes_requested'; p_note: string }
+        Returns: ArtworkRow[]
+      }
+    }
     Enums: Record<string, never>
     CompositeTypes: Record<string, never>
   }
