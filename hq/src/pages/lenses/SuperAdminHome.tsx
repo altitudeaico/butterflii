@@ -1,3 +1,4 @@
+import { ArtworkWorkspace } from '../ArtworkWorkspace'
 import { useMemo, useState } from 'react'
 import { useAuth } from '../../auth/useAuth'
 import { Button } from '../../components/Button'
@@ -69,6 +70,8 @@ export function SuperAdminHome() {
         </p>
         <h1 className="font-serif text-3xl">Welcome, {profile?.display_name}</h1>
       </div>
+
+      <ArtworkWorkspace />
 
       {!event ? (
         <EmptyState
