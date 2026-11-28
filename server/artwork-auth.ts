@@ -26,7 +26,7 @@ export function createArtworkAuthenticator(config: AuthConfig): ArtworkDependenc
     if (!profileResponse.ok) return null
     const profiles = await profileResponse.json() as { id: string; role: string }[]
     if (!Array.isArray(profiles) || profiles.length !== 1 || profiles[0].id !== user.id) return null
-    const role = profiles[0].role === 'artist' ? 'artist' : profiles[0].role === 'super_admin' ? 'parent' : null
+    const role = profiles[0].role === 'artist' ? 'artist' : ['super_admin', 'ops_admin'].includes(profiles[0].role) ? 'parent' : null
     if (!role) return null
     const mapping = await config.resolveMapping(user.id)
     if (!mapping || !uuid.test(mapping.memberId) || mapping.role !== role) return null
