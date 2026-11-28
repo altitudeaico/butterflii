@@ -10,3 +10,10 @@ test('inventory classification',()=>{
  assert.equal(inventoryStatus({...row,kind:'artwork',stock:1}).status,'original-available')
  assert.equal(inventoryStatus({...row,kind:'artwork'}).status,'unverified')
 })
+
+test('invalid quantities and reserved originals',()=>{
+ const row={kind:'merchandise',stock:5,reserved:0,verified:true}
+ for(const patch of [{stock:-1},{stock:1.5},{reserved:-1},{reserved:0.5},{kind:'unknown'},{stock:NaN}])assert.deepEqual(inventoryStatus({...row,...patch}),{status:'unverified',available:null})
+ assert.deepEqual(inventoryStatus({...row,kind:'artwork',stock:1,reserved:1}),{status:'reserved',available:0})
+ assert.deepEqual(inventoryStatus({...row,stock:4}),{status:'in-stock',available:4})
+})
