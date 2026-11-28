@@ -1,4 +1,3 @@
-import { ArtworkWorkspace } from '../ArtworkWorkspace'
 import { useMemo, useState } from 'react'
 import { useAuth } from '../../auth/useAuth'
 import { TaskRow } from '../../components/TaskRow'
@@ -10,7 +9,7 @@ import { useCurrentEvent } from '../../lib/queries/events'
 import { useObjectives } from '../../lib/queries/objectives'
 import { useCreateTask, useTasks, useUpdateTaskStatus } from '../../lib/queries/tasks'
 
-export function ArtistHome() {
+function EventWorkspace() {
   const { profile, signOut } = useAuth()
   const [ideaOpen, setIdeaOpen] = useState(false)
   const [ideaTitle, setIdeaTitle] = useState('')
@@ -34,7 +33,6 @@ export function ArtistHome() {
       <img src={`${import.meta.env.BASE_URL}logo-mark.png`} alt="Butterflii" className="h-16 w-auto" />
       <h1 className="font-serif text-3xl text-brand-purple-deep">Hi {profile?.display_name}!</h1>
 
-      <ArtworkWorkspace />
 
       {!event ? (
         <EmptyState message="Nothing to show yet. Ask a grown-up to get things started!" />
@@ -132,4 +130,19 @@ export function ArtistHome() {
       </BottomSheet>
     </div>
   )
+}
+
+import { ArtworkWorkspace } from '../ArtworkWorkspace'
+
+export function ArtistHome() {
+  const { signOut } = useAuth()
+  const [events, setEvents] = useState(false)
+  return <main className="mx-auto min-h-screen max-w-5xl space-y-6 px-5 py-8">
+    <header className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs font-semibold uppercase tracking-widest text-brand-purple">Butterflii HQ</p><h1 className="font-serif text-3xl">Welcome to your studio, Elsie!</h1><p className="text-sm text-brand-dark/60">My creative space</p></div><button onClick={signOut} className="text-sm underline">Sign out</button></header>
+    <nav aria-label="Studio navigation" className="flex flex-wrap gap-2 border-b border-brand-pink/30 pb-3"><button aria-pressed={!events} onClick={() => setEvents(false)} className={`rounded-xl px-4 py-2 font-semibold ${!events ? 'bg-brand-purple text-white' : 'bg-white'}`}>My artwork</button><button aria-pressed={events} onClick={() => setEvents(true)} className={`rounded-xl px-4 py-2 font-semibold ${events ? 'bg-brand-purple text-white' : 'bg-white'}`}>Events & planning</button></nav>
+    {events ? <section><p className="text-sm text-brand-dark/60">Event plans and historical records. Past deadlines are not current studio priorities.</p><EventWorkspace /></section> : <>
+      <section className="rounded-2xl bg-white p-5 ring-1 ring-brand-pink/30"><h2 className="font-serif text-xl">Create something wonderful</h2><p className="mt-2 text-sm text-brand-dark/70">Give your artwork a name, tell us about it and choose a price. Mum or Dad can review it.</p></section>
+      <ArtworkWorkspace />
+    </>}
+  </main>
 }
