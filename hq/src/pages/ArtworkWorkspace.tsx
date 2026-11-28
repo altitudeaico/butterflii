@@ -1,3 +1,4 @@
+import { PublicationControl } from './PublicationControl'
 import { useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useAuth } from '../auth/useAuth'
@@ -61,6 +62,7 @@ export function ArtworkWorkspace() {
           <p>{item.description}</p>
           <p>{(item.proposed_price_pence / 100).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })}</p>
           <p>{item.status === 'pending' ? 'Waiting for approval' : item.status === 'approved' ? 'Approved (not yet published)' : 'Changes requested'}</p>
+          {parent && item.status === 'approved' && <PublicationControl id={item.id} pricePence={item.proposed_price_pence}/>}
           {item.review_note && <p>{item.review_note}</p>}
           {artist && item.status === 'changes_requested' && <button className={action} disabled={submit.isPending} onClick={()=>{setEditing(item.id);setTitle(item.title);setDescription(item.description);setPrice((item.proposed_price_pence/100).toFixed(2))}}>Edit and resubmit</button>}
           {parent && item.status === 'pending' && <>
