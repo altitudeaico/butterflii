@@ -9,7 +9,7 @@ const action = 'rounded-2xl bg-brand-purple px-4 py-3 font-semibold text-white d
 export function ArtworkWorkspace() {
   const { profile } = useAuth()
   const artist = profile?.role === 'artist'
-  const parent = profile?.role === 'super_admin'
+  const parent = profile?.role === 'super_admin' || profile?.role === 'ops_admin'
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
