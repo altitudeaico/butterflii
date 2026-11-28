@@ -1,4 +1,3 @@
-import { ArtworkWorkspace } from '../ArtworkWorkspace'
 import { useMemo, useState } from 'react'
 import { useAuth } from '../../auth/useAuth'
 import { Button } from '../../components/Button'
@@ -27,7 +26,7 @@ function needsAttention(task: Task): boolean {
   return overdue || task.status === 'blocked'
 }
 
-export function OpsAdminHome() {
+function EventWorkspace() {
   const { profile, signOut } = useAuth()
   const [sheet, setSheet] = useState<Sheet>(null)
   const [newTaskObjectiveId, setNewTaskObjectiveId] = useState('')
@@ -61,7 +60,6 @@ export function OpsAdminHome() {
         {event && <p className="text-sm text-brand-dark/50">{event.name}</p>}
       </div>
 
-      <ArtworkWorkspace />
 
       {!event ? (
         <EmptyState message="No event yet. Ask the super admin to create one." />
@@ -185,4 +183,19 @@ export function OpsAdminHome() {
       </BottomSheet>
     </div>
   )
+}
+
+import { ArtworkWorkspace } from '../ArtworkWorkspace'
+
+export function OpsAdminHome() {
+  const { signOut } = useAuth()
+  const [events, setEvents] = useState(false)
+  return <main className="mx-auto min-h-screen max-w-5xl space-y-6 px-5 py-8">
+    <header className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs font-semibold uppercase tracking-widest text-brand-purple">Butterflii HQ</p><h1 className="font-serif text-3xl">Welcome back, Mum</h1><p className="text-sm text-brand-dark/60">Studio operations</p></div><button onClick={signOut} className="text-sm underline">Sign out</button></header>
+    <nav aria-label="Studio navigation" className="flex flex-wrap gap-2 border-b border-brand-pink/30 pb-3"><button aria-pressed={!events} onClick={() => setEvents(false)} className={`rounded-xl px-4 py-2 font-semibold ${!events ? 'bg-brand-purple text-white' : 'bg-white'}`}>Studio overview</button><button aria-pressed={events} onClick={() => setEvents(true)} className={`rounded-xl px-4 py-2 font-semibold ${events ? 'bg-brand-purple text-white' : 'bg-white'}`}>Events & planning</button></nav>
+    {events ? <section><p className="text-sm text-brand-dark/60">Event plans and historical records. Past deadlines are not current studio priorities.</p><EventWorkspace /></section> : <>
+      <section className="rounded-2xl bg-white p-5 ring-1 ring-brand-pink/30"><h2 className="font-serif text-xl">Your studio at a glance</h2><p className="mt-2 text-sm text-brand-dark/70">Review artwork submissions and feedback here. Orders, inventory and financial reporting are not connected to this dashboard yet.</p></section>
+      <ArtworkWorkspace />
+    </>}
+  </main>
 }
