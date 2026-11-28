@@ -1,0 +1,9 @@
+.git/
+.github/
+docs/
+operations/
+tests/
+README.md
+CNAME
+wrangler.jsonc
+.assetsignore
