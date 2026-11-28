@@ -1,3 +1,4 @@
+import { CatalogueWorkspace } from '../CatalogueWorkspace'
 import { useAuth } from '../../auth/useAuth'
 import { ArtworkWorkspace } from '../ArtworkWorkspace'
 
@@ -10,5 +11,6 @@ export function SuperAdminHome() {
     </header>
     <p className="text-sm text-brand-dark/70">Review artwork submissions and feedback.</p>
     <ArtworkWorkspace />
+    <CatalogueWorkspace />
   </main>
 }
