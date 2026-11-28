@@ -14,6 +14,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test tests/catalogue.test.cjs
+      - run: node --test tests/catalogue.test.cjs tests/public-boundary.test.cjs
       - run: node --check gallery-render.js && node --check storefront.js && node --check contact.js
       - run: node scripts/build-public.cjs
+  artwork:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: node --experimental-strip-types --test server/artwork-handler.test.ts server/artwork-integration.test.ts
+      - run: npm ci
+        working-directory: hq
+      - run: npm run build
+        working-directory: hq
