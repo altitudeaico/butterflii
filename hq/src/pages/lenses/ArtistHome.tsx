@@ -1,3 +1,4 @@
+import { ArtworkWorkspace } from '../ArtworkWorkspace'
 import { useMemo, useState } from 'react'
 import { useAuth } from '../../auth/useAuth'
 import { TaskRow } from '../../components/TaskRow'
@@ -32,6 +33,8 @@ export function ArtistHome() {
     <div className="mx-auto flex min-h-screen max-w-lg flex-col items-center gap-6 px-6 py-10 text-center">
       <img src={`${import.meta.env.BASE_URL}logo-mark.png`} alt="Butterflii" className="h-16 w-auto" />
       <h1 className="font-serif text-3xl text-brand-purple-deep">Hi {profile?.display_name}!</h1>
+
+      <ArtworkWorkspace />
 
       {!event ? (
         <EmptyState message="Nothing to show yet. Ask a grown-up to get things started!" />
