@@ -29,3 +29,27 @@ jobs:
         working-directory: hq
       - run: npm run build
         working-directory: hq
+  database:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_PASSWORD: disposable-ci-only
+          POSTGRES_DB: artwork_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      PGPASSWORD: disposable-ci-only
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply migrations and verify privileges
+        run: |
+          for file in artwork-test-bootstrap artwork-submissions-draft artwork-review-hardening-draft artwork-service-draft artwork-service-review-draft artwork-staging-verify; do
+            psql -h localhost -U postgres -d artwork_test -v ON_ERROR_STOP=1 -f "database/$file.sql"
+          done
