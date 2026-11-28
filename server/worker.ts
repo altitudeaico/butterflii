@@ -1,4 +1,4 @@
-import { createArtworkService } from './artwork-service'
+import { createArtworkService } from './artwork-service.ts'
 interface Env {
  HQ_URL: string
  HQ_PUBLISHABLE_KEY: string
