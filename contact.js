@@ -11,3 +11,6 @@ const region=new URLSearchParams(location.search).get('region');const regions=['
 
 // Email fallback for commercial enquiries while hosted forms are unavailable.
 if(quote&&(!piece||!/^[a-z0-9-]{1,80}$/.test(piece))){const subject=select?select.value:'General enquiry';quote.href='mailto:olatoyefirm@gmail.com?subject='+encodeURIComponent('Butterflii: '+subject)+'&body='+encodeURIComponent('Hello Butterflii,\n\nI would like to discuss: '+subject+'\n\n');}
+
+// Keep the email fallback aligned with the customer's selected category.
+if(select&&quote){select.addEventListener('change',()=>{if(piece&&/^[a-z0-9-]{1,80}$/.test(piece)&&select.value==='Delivery quote'){const body='Hello Butterflii,\n\nArtwork: '+piece.replace(/-/g,' ')+'\nDestination: '+(regions.includes(region)?region:'To be confirmed')+'\nCountry and postal code: ';quote.href='mailto:olatoyefirm@gmail.com?subject='+encodeURIComponent('Artwork availability and delivery quote')+'&body='+encodeURIComponent(body);return;}quote.href='mailto:olatoyefirm@gmail.com?subject='+encodeURIComponent('Butterflii: '+select.value)+'&body='+encodeURIComponent('Hello Butterflii,\n\nI would like to discuss: '+select.value+'\n\n');});}
