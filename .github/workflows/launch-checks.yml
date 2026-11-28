@@ -27,6 +27,9 @@ jobs:
       - run: node --experimental-strip-types --test server/artwork-handler.test.ts server/artwork-integration.test.ts
       - run: npm ci
         working-directory: hq
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+        working-directory: hq
       - run: npm run build
         working-directory: hq
   database:
