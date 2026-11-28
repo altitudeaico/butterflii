@@ -1,3 +1,4 @@
+import { FamilyInventoryTest } from '../FamilyInventoryTest'
 import { CatalogueWorkspace } from '../CatalogueWorkspace'
 import { useAuth } from '../../auth/useAuth'
 import { ArtworkWorkspace } from '../ArtworkWorkspace'
@@ -12,5 +13,6 @@ export function OpsAdminHome() {
     <p className="text-sm text-brand-dark/70">Review artwork and help manage the studio.</p>
     <ArtworkWorkspace />
     <CatalogueWorkspace />
+      <FamilyInventoryTest />
   </main>
 }
