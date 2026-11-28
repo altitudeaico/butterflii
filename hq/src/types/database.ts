@@ -168,6 +168,10 @@ export type Database = {
     }
     Views: Record<string, never>
     Functions: {
+      resubmit_artwork: {
+        Args: { p_id: string; p_title: string; p_description: string; p_price: number }
+        Returns: ArtworkRow[]
+      }
       review_artwork: {
         Args: { p_id: string; p_status: 'approved' | 'changes_requested'; p_note: string }
         Returns: ArtworkRow[]
