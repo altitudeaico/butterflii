@@ -1,5 +1,5 @@
-import { handleArtwork } from './artwork-handler'
-import { createArtworkAuthenticator } from './artwork-auth'
+import { handleArtwork } from './artwork-handler.ts'
+import { createArtworkAuthenticator } from './artwork-auth.ts'
 
 export interface ArtworkServiceConfig {
   hqUrl: string
