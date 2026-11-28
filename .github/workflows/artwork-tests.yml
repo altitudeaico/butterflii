@@ -1,0 +1,23 @@
+name: Artwork validation
+on:
+  push:
+    branches: [weekend-launch-2026-11-27]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Artwork handler tests
+        run: node --experimental-strip-types --test server/artwork-handler.test.ts
+      - name: Install HQ dependencies
+        working-directory: hq
+        run: npm ci
+      - name: Compile HQ
+        working-directory: hq
+        run: npm run build
