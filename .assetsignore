@@ -7,3 +7,8 @@ README.md
 CNAME
 wrangler.jsonc
 .assetsignore
+scripts/
+dist/
+dist-public/
+test-output/
+node_modules/
